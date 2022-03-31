@@ -6,12 +6,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
-    }
+    "eject": "react-scripts eject",
+    "ts-check-hook": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.@(ts|tsx)": [
