@@ -13,6 +13,11 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
     }
   },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn run lint"
+    ]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -53,6 +58,7 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
     "cz-customizable": "^6.3.0",
-    "husky": "^7.0.4"
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7"
   }
 }
