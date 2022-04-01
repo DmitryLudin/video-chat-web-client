@@ -10,7 +10,7 @@ export function Content() {
   return (
     <Box
       sx={{
-        bgcolor: '#fbfbfc',
+        bgcolor: 'background.default',
         pt: 6,
         pb: 4,
         flexGrow: 1,

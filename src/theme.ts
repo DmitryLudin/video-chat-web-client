@@ -1,18 +1,31 @@
-import { red } from '@mui/material/colors';
-import { createTheme } from '@mui/material/styles';
+import { ThemeOptions } from '@mui/material/styles';
 
-const theme = createTheme({
+export const lightThemeOptions: ThemeOptions = {
   palette: {
+    mode: 'light',
+    background: {
+      default: '#fafafa',
+    },
     primary: {
-      main: 'rgb(118, 88, 224)',
+      main: '#7558e0',
     },
     secondary: {
-      main: '#19857b',
-    },
-    error: {
-      main: red.A400,
+      main: '#e0577e',
     },
   },
-});
+};
 
-export default theme;
+export const darkThemeOptions: ThemeOptions = {
+  palette: {
+    mode: 'dark',
+    background: {
+      default: '#303030',
+    },
+    primary: {
+      main: '#7558e0',
+    },
+    secondary: {
+      main: '#e0577e',
+    },
+  },
+};

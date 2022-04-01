@@ -20,7 +20,7 @@ export function LoginPage() {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'error.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
