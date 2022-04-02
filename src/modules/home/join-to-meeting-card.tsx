@@ -29,7 +29,7 @@ export function JoinToMeetingCard() {
         onClose={handleClose}
         buttons={
           <>
-            <Button variant="outlined" onClick={handleClose}>
+            <Button color="inherit" variant="contained" onClick={handleClose}>
               Отменить
             </Button>
             <Button variant="contained" onClick={handleClose}>
