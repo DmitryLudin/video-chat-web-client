@@ -15,19 +15,28 @@ export function HomePage() {
     <Container maxWidth="sm">
       <Grid container spacing={4} justifyContent="center">
         <Grid item>
-          <Card sx={{ borderRadius: 4 }}>
+          <Card raised sx={{ borderRadius: 4, bgcolor: 'secondary.main' }}>
             <CardActionArea>
               <CardContent sx={{ width: 240, height: 200 }}>
                 <Grid height="100%" container direction="column">
                   <Grid flexGrow={1} item>
                     <VideoCameraFrontRoundedIcon
-                      color="secondary"
+                      sx={{ color: 'primary.contrastText' }}
                       fontSize="large"
                     />
                   </Grid>
+
                   <Grid item direction="column">
-                    <Typography variant="h6">Новая встреча</Typography>
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography
+                      sx={{ color: 'primary.contrastText' }}
+                      variant="h6"
+                    >
+                      Новая встреча
+                    </Typography>
+                    <Typography
+                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                      variant="caption"
+                    >
                       Запустить новую встречу
                     </Typography>
                   </Grid>
@@ -38,16 +47,27 @@ export function HomePage() {
         </Grid>
 
         <Grid item>
-          <Card sx={{ borderRadius: 4 }}>
+          <Card raised sx={{ borderRadius: 4, bgcolor: 'primary.main' }}>
             <CardActionArea>
               <CardContent sx={{ width: 240, height: 200 }}>
                 <Grid height="100%" container direction="column">
                   <Grid flexGrow={1} item>
-                    <AddCircleRoundedIcon color="primary" fontSize="large" />
+                    <AddCircleRoundedIcon
+                      sx={{ color: 'primary.contrastText' }}
+                      fontSize="large"
+                    />
                   </Grid>
                   <Grid item direction="column">
-                    <Typography variant="h6">Присоединиться</Typography>
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography
+                      sx={{ color: 'primary.contrastText' }}
+                      variant="h6"
+                    >
+                      Присоединиться
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      sx={{ color: 'rgba(255, 255, 255, 0.7)' }}
+                    >
                       по приглашающей ссылке
                     </Typography>
                   </Grid>

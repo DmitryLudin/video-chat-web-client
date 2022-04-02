@@ -3,10 +3,10 @@ import { PrivateRoute } from 'components/private-route';
 import { HomePage } from 'modules/home/home.page';
 import { LoginPage } from 'modules/log-in/log-in.page';
 import { MeetingPage } from 'modules/meeting/meeting.page';
-import React from 'react';
+import React, { memo } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-export function Content() {
+export const Content = memo(function ContentMemo() {
   return (
     <Box
       sx={{
@@ -34,4 +34,4 @@ export function Content() {
       </Container>
     </Box>
   );
-}
+});

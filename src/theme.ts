@@ -8,6 +8,7 @@ export const lightThemeOptions: ThemeOptions = {
     },
     primary: {
       main: '#7558e0',
+      contrastText: '#fff',
     },
     secondary: {
       main: '#e0577e',
