@@ -1,8 +1,24 @@
+import { Box } from '@mui/material';
+import { MeetingContent } from 'modules/meeting/components/content';
+import { MeetingFooter } from 'modules/meeting/components/footer';
+import { MeetingSidebar } from 'modules/meeting/components/sidebar';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 
 export function MeetingPage() {
-  const params = useParams();
-
-  return <div>Meeting {params.id}</div>;
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          minHeight: 'calc(100vh - 64px)',
+        }}
+      >
+        <MeetingContent />
+        <MeetingFooter />
+      </Box>
+      <MeetingSidebar />
+    </Box>
+  );
 }
