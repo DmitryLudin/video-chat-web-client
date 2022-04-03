@@ -1,10 +1,13 @@
-import { Box } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { MeetingContent } from 'modules/meeting/components/content';
-import { MeetingFooter } from 'modules/meeting/components/footer';
+import { MeetingFooter } from 'modules/meeting/components/footer/footer';
 import { MeetingSidebar } from 'modules/meeting/components/sidebar';
 import React from 'react';
 
 export function MeetingPage() {
+  const theme = useTheme();
+  const isSmallDevice = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <Box sx={{ display: 'flex' }}>
       <Box
@@ -12,7 +15,7 @@ export function MeetingPage() {
           display: 'flex',
           flexDirection: 'column',
           flexGrow: 1,
-          minHeight: 'calc(100vh - 64px)',
+          minHeight: `calc(100vh - ${isSmallDevice ? '56px' : '64px'})`,
         }}
       >
         <MeetingContent />
