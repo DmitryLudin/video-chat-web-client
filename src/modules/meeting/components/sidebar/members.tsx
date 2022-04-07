@@ -1,9 +1,12 @@
 import {
+  Box,
   Grid,
   List,
   ListItem,
   ListItemText,
   ListSubheader,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import React from 'react';
 import MicIcon from '@mui/icons-material/Mic';
@@ -20,33 +23,39 @@ const members = [
   'Тест Тест 4',
 ];
 
-export function Members({ isChatOpen }: { isChatOpen: boolean }) {
+export function Members() {
+  const theme = useTheme();
+  const isTableOrMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
-    <List
-      sx={{
-        position: 'relative',
-        overflow: 'auto',
-        minHeight: isChatOpen ? 5 * 48 : 'auto',
-      }}
-      subheader={<ListSubheader>Участники ({members.length})</ListSubheader>}
-    >
-      {members.map((text) => (
-        <ListItem
-          key={text}
-          secondaryAction={
-            <Grid container spacing={2}>
-              <Grid item>
-                <MicIcon />
+    <Box sx={{ overflow: 'hidden', height: 'inherit', maxHeight: '100%' }}>
+      <List
+        sx={{
+          position: 'relative',
+          overflow: 'auto',
+          maxHeight: isTableOrMobile ? '40vh' : 'inherit',
+          height: 'auto',
+        }}
+        subheader={<ListSubheader>Участники ({members.length})</ListSubheader>}
+      >
+        {members.map((text) => (
+          <ListItem
+            key={text}
+            secondaryAction={
+              <Grid container spacing={2}>
+                <Grid item>
+                  <MicIcon />
+                </Grid>
+                <Grid item>
+                  <VideocamOutlinedIcon />
+                </Grid>
               </Grid>
-              <Grid item>
-                <VideocamOutlinedIcon />
-              </Grid>
-            </Grid>
-          }
-        >
-          <ListItemText primary={text} />
-        </ListItem>
-      ))}
-    </List>
+            }
+          >
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   );
 }

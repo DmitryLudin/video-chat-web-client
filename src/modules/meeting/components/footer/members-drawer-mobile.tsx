@@ -24,7 +24,7 @@ function MembersDrawerMobileObserver() {
       anchor="bottom"
       open={isTableOrMobile && isMembersListOpen}
     >
-      <Members isChatOpen={isChatOpen} />
+      <Members />
     </SwipeableDrawer>
   );
 }

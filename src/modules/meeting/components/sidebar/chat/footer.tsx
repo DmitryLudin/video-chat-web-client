@@ -1,9 +1,13 @@
-import { Fab, Grid, Paper, TextField } from '@mui/material';
+import { Box, Fab, Grid, Paper, Stack, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { footerHeight } from 'modules/meeting/components/footer/footer';
-import React from 'react';
+import { ReplyMessage } from 'modules/meeting/components/sidebar/chat/message/reply-message';
+import React, { useState } from 'react';
+
+const reply = true;
 
 export function ChatFooter() {
+  const [isReply, setReply] = useState(true);
   const [value, setValue] = React.useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -13,7 +17,7 @@ export function ChatFooter() {
   return (
     <Paper
       sx={{
-        height: footerHeight,
+        minHeight: footerHeight,
         px: 2,
         mt: 'auto',
         display: 'flex',
@@ -26,23 +30,28 @@ export function ChatFooter() {
       variant="outlined"
       component="footer"
     >
-      <Grid container alignItems="center" spacing={1}>
-        <Grid item flexGrow={1}>
-          <TextField
-            placeholder="Введи сообщение"
-            multiline
-            margin="dense"
-            fullWidth
-            value={value}
-            onChange={handleChange}
-          />
-        </Grid>
-        <Grid item>
-          <Fab size="medium" color="primary">
-            <SendIcon />
-          </Fab>
-        </Grid>
-      </Grid>
+      <Box sx={{ width: '100%' }}>
+        <Stack>
+          {isReply && <ReplyMessage onClose={() => setReply(false)} />}
+          <Grid container alignItems="center" spacing={1}>
+            <Grid item flexGrow={1}>
+              <TextField
+                placeholder="Введи сообщение"
+                multiline
+                margin="dense"
+                fullWidth
+                value={value}
+                onChange={handleChange}
+              />
+            </Grid>
+            <Grid item>
+              <Fab size="medium" color="primary">
+                <SendIcon />
+              </Fab>
+            </Grid>
+          </Grid>
+        </Stack>
+      </Box>
     </Paper>
   );
 }

@@ -30,13 +30,13 @@ function MeetingSidebarObserver() {
         },
       }}
       variant="persistent"
-      open={uiSidebarService.isSidebarOpen}
+      open={!isTableOrMobile && uiSidebarService.isSidebarOpen}
       anchor="right"
     >
       <Toolbar />
-      {isMembersListOpen && <Members isChatOpen={isChatOpen} />}
+      {isMembersListOpen && <Members />}
       {isMembersListOpen && isChatOpen && <Divider />}
-      {isChatOpen && <Chat isMembersListOpen={isMembersListOpen} />}
+      {isChatOpen && <Chat />}
     </Drawer>
   );
 }

@@ -20,7 +20,7 @@ const Wrap = styled('main', {
     duration: theme.transitions.duration.leavingScreen,
   }),
 
-  ...((isSidebarOpen || isMobile) && {
+  ...(isSidebarOpen && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -44,7 +44,7 @@ export const MeetingContentWrap = withObserverMemo(
     return (
       <Wrap
         isMobile={isMobile}
-        isSidebarOpen={uiSidebarService.isSidebarOpen || isTableOrMobile}
+        isSidebarOpen={isTableOrMobile || uiSidebarService.isSidebarOpen}
       >
         {children}
       </Wrap>

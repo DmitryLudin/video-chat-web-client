@@ -7,7 +7,7 @@ import React from 'react';
 function ChatDrawerMobileObserver() {
   const theme = useTheme();
   const isTableOrMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { isMembersListOpen, isChatOpen } = uiSidebarService.store;
+  const { isChatOpen } = uiSidebarService.store;
 
   return (
     <SwipeableDrawer
@@ -18,7 +18,7 @@ function ChatDrawerMobileObserver() {
       anchor="bottom"
       open={isTableOrMobile && isChatOpen}
     >
-      <Chat isMembersListOpen={isMembersListOpen} />
+      <Chat />
     </SwipeableDrawer>
   );
 }
