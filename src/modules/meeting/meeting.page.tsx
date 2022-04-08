@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { MeetingContent } from 'modules/meeting/components/content';
+import { MeetingContent } from 'modules/meeting/components/content/content';
 import { MeetingFooter } from 'modules/meeting/components/footer/footer';
 import { MeetingContentWrap } from 'modules/meeting/components/main-content-wrap';
 import { MeetingSidebar } from 'modules/meeting/components/sidebar/sidebar';
