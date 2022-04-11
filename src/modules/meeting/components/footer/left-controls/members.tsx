@@ -1,6 +1,6 @@
 import PeopleIcon from '@mui/icons-material/People';
 import { Badge } from '@mui/material';
-import { withObserverMemo } from 'hoc/with-observer-memo.hoc';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 import { FooterActionControl } from 'modules/meeting/components/footer/action-control';
 import { uiSidebarService } from 'modules/meeting/services/ui-sidebar.service';
 import React from 'react';

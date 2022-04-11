@@ -5,7 +5,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { withObserverMemo } from 'hoc/with-observer-memo.hoc';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 import { Chat } from 'modules/meeting/components/sidebar/chat/chat';
 import { Members } from 'modules/meeting/components/sidebar/members';
 import { drawerWidth } from 'modules/meeting/consts';

@@ -1,5 +1,5 @@
 import { styled, useMediaQuery, useTheme } from '@mui/material';
-import { withObserverMemo } from 'hoc/with-observer-memo.hoc';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 import { drawerWidth } from 'modules/meeting/consts';
 import { uiSidebarService } from 'modules/meeting/services/ui-sidebar.service';
 import React, { PropsWithChildren, useEffect } from 'react';

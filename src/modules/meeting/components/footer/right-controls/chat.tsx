@@ -1,7 +1,7 @@
 import ChatIcon from '@mui/icons-material/Chat';
 import { Badge } from '@mui/material';
 import MarkChatReadIcon from '@mui/icons-material/MarkChatRead';
-import { withObserverMemo } from 'hoc/with-observer-memo.hoc';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 import { FooterActionControl } from 'modules/meeting/components/footer/action-control';
 import { uiSidebarService } from 'modules/meeting/services/ui-sidebar.service';
 import React from 'react';

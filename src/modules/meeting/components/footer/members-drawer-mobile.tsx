@@ -1,5 +1,5 @@
 import { SwipeableDrawer, useMediaQuery, useTheme } from '@mui/material';
-import { withObserverMemo } from 'hoc/with-observer-memo.hoc';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 import { Members } from 'modules/meeting/components/sidebar/members';
 import { uiSidebarService } from 'modules/meeting/services/ui-sidebar.service';
 import React from 'react';

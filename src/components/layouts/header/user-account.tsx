@@ -1,6 +1,6 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Box, Typography } from '@mui/material';
-import { withObserverMemo } from 'hoc/with-observer-memo.hoc';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 import React from 'react';
 import { userService } from 'shared/domains/user/user.service';
 

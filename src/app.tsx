@@ -1,9 +1,9 @@
 import { Box, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ColorModeContext } from 'contexts/color-mode.context';
-import { useThemeColorMode } from 'hooks/use-theme-color-mode.hook';
-import { Content } from 'layouts/content';
-import { Header } from 'layouts/header/header';
+import { ColorModeContext } from 'shared/contexts/color-mode.context';
+import { useThemeColorMode } from 'shared/hooks/use-theme-color-mode.hook';
+import { Content } from 'components/layouts/content';
+import { Header } from 'components/layouts/header/header';
 import React, { useEffect } from 'react';
 import { authService } from 'shared/domains/auth/auth.service';
 

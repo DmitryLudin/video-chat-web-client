@@ -1,7 +1,7 @@
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import { Button, TextField } from '@mui/material';
 import { Modal } from 'components/modal';
-import { useModalHook } from 'hooks/use-modal.hook';
+import { useModalHook } from 'shared/hooks/use-modal.hook';
 import { HomePageCard } from 'modules/home/components/card';
 import React from 'react';
 
