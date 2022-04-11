@@ -3,11 +3,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ColorModeContext } from 'contexts/color-mode.context';
 import { useThemeColorMode } from 'hooks/use-theme-color-mode.hook';
 import { Content } from 'layouts/content';
-import { Header } from 'layouts/header';
-import React from 'react';
+import { Header } from 'layouts/header/header';
+import React, { useEffect } from 'react';
+import { authService } from 'shared/domains/auth/auth.service';
 
 function App() {
   const { mode, theme, toggleColorMode } = useThemeColorMode();
+
+  useEffect(() => {
+    authService.authenticate();
+  }, []);
 
   return (
     <ColorModeContext.Provider value={{ mode, toggleColorMode }}>

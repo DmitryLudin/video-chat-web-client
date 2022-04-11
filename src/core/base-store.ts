@@ -1,24 +1,27 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeObservable, observable } from 'mobx';
 
 export class Store<T extends object> {
-  private state: T;
+  @observable protected state: T;
   private readonly initialState: T;
 
   constructor(initialState: T) {
     this.state = initialState;
     this.initialState = initialState;
-    makeAutoObservable(this);
+
+    makeObservable(this);
   }
 
   getStore() {
     return this.state;
   }
 
+  @action
   setStore(state: T) {
     this.state = state;
   }
 
-  updateStore(state: T) {
+  @action
+  updateStore(state: Partial<T>) {
     this.state = { ...this.state, ...state };
   }
 
@@ -26,10 +29,12 @@ export class Store<T extends object> {
     return this.state[key];
   }
 
+  @action
   updateStoreValue<K extends keyof T>(key: K, value: T[K]) {
     this.state[key] = value;
   }
 
+  @action
   resetStore() {
     this.state = this.initialState;
   }

@@ -7,7 +7,7 @@ import React from 'react';
 function MembersDrawerMobileObserver() {
   const theme = useTheme();
   const isTableOrMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { isMembersListOpen, isChatOpen } = uiSidebarService.store;
+  const { isMembersListOpen } = uiSidebarService.store;
 
   return (
     <SwipeableDrawer

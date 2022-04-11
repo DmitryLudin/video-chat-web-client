@@ -4,8 +4,6 @@ import { footerHeight } from 'modules/meeting/components/footer/footer';
 import { ReplyMessage } from 'modules/meeting/components/sidebar/chat/message/reply-message';
 import React, { useState } from 'react';
 
-const reply = true;
-
 export function ChatFooter() {
   const [isReply, setReply] = useState(true);
   const [value, setValue] = React.useState('');

@@ -7,9 +7,27 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { ChangeEventHandler, useCallback, useState } from 'react';
+import { authService } from 'shared/domains/auth/auth.service';
 
 export function LoginPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleChangeUsername: ChangeEventHandler<HTMLInputElement> =
+    useCallback((e) => {
+      setUsername(e.target.value);
+    }, []);
+
+  const handleChangePassword: ChangeEventHandler<HTMLInputElement> =
+    useCallback((e) => {
+      setPassword(e.target.value);
+    }, []);
+
+  const handleSubmit = useCallback(() => {
+    authService.logIn({ username, password });
+  }, [username, password]);
+
   return (
     <Container maxWidth="xs">
       <Box
@@ -31,14 +49,27 @@ export function LoginPage() {
             margin="normal"
             required
             fullWidth
+            value={username}
             label="Твое имя или псевдоним"
             name="username"
+            onChange={handleChangeUsername}
             autoFocus
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            value={password}
+            onChange={handleChangePassword}
+            name="password"
+            label="Пароль"
+            type="password"
           />
           <Button
             type="submit"
             size="large"
             fullWidth
+            onClick={handleSubmit}
             variant="contained"
             sx={{ mt: 2, mb: 2 }}
           >
