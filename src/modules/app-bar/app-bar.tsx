@@ -1,10 +1,10 @@
 import { AppBar, Box, Toolbar } from '@mui/material';
-import { ThemeSwitch } from 'components/layouts/header/theme-switch';
-import { UserAccount } from 'components/layouts/header/user-account';
-import { Logo } from 'components/layouts/logo';
+import { ThemeSwitch } from 'modules/app-bar/theme-switch';
+import { UserAccount } from 'modules/app-bar/user-account';
+import { Logo } from 'components/logo';
 import React from 'react';
 
-export function Header() {
+export function AppBarMenu() {
   return (
     <AppBar
       position="relative"

@@ -3,12 +3,14 @@ import {
   isRequestError,
   TDeserializeArrayReturn,
   TDeserializeReturn,
-  THttpMethod,
   TRequestError,
   TResponse,
 } from 'core/base-transport/types';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const { REACT_APP_API_URL } = process.env;
+
+const baseUrl = REACT_APP_API_URL as string;
 
 export abstract class BaseTransport {
   protected readonly basePath: string;
@@ -17,12 +19,12 @@ export abstract class BaseTransport {
     this.basePath = basePath;
   }
 
-  protected get<TResponse>(path: string) {
-    return this.request<TResponse>('GET', path);
+  protected get(path: string, params?: object) {
+    return this.request({ method: 'GET', url: path, params });
   }
 
-  protected post<TResponse>(path: string, data?: unknown) {
-    return this.request<TResponse>('POST', path, data);
+  protected post(path: string, data?: unknown) {
+    return this.request({ method: 'POST', url: path, data });
   }
 
   protected deserialize<T>(model: ClassConstructor<T>): TDeserializeReturn<T> {
@@ -38,30 +40,19 @@ export abstract class BaseTransport {
         : [];
   }
 
-  private request<TResponse>(
-    method: THttpMethod,
-    path: string,
-    data?: unknown
-  ) {
-    return fetch(`${REACT_APP_API_URL as string}/${path}`, {
-      method,
-      mode: 'cors',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
-      ...(data ? { body: JSON.stringify(data) } : {}),
+  private request(config: Omit<AxiosRequestConfig, 'url'> & { url: string }) {
+    return axios({
+      withCredentials: true,
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      ...config,
+      url: `${baseUrl}/${config.url}`,
     })
-      .then((response) => response.json())
-      .then((data: TResponse | TRequestError) => {
-        if (isRequestError(data)) {
-          throw data;
+      .then((response: AxiosResponse) => response)
+      .catch((error: AxiosError<TRequestError>) => {
+        if (isRequestError(error.response?.data)) {
+          return Promise.reject(error.response?.data);
         }
-
-        return { data };
-      })
-      .catch((error: unknown) => {
-        throw error;
+        return Promise.reject(error);
       });
   }
 }

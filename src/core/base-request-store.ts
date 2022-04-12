@@ -22,7 +22,7 @@ export class RequestStore<T> extends Store<T & TRequestStore> {
   }
 
   @action
-  setError = (error: TRequestError) => {
+  setError = (error?: TRequestError) => {
     this.state.error = error;
   };
 }

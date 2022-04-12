@@ -1,10 +1,11 @@
 import { Videocam } from '@mui/icons-material';
-import { Typography } from '@mui/material';
+import { Typography, Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import React from 'react';
 
 export function Logo() {
   return (
-    <>
+    <Link underline="none" color="inherit" component={RouterLink} to="/">
       <Videocam
         color="primary"
         fontSize="large"
@@ -30,6 +31,6 @@ export function Logo() {
           встречи
         </Typography>
       </Typography>
-    </>
+    </Link>
   );
 }

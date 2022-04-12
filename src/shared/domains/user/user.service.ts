@@ -16,7 +16,7 @@ export class UserService {
     return this._store.getStore();
   }
 
-  setUser(userData: IUser) {
+  setUser(userData: IUser | null) {
     this._store.updateStore({ user: userData });
   }
 }

@@ -1,17 +1,19 @@
-import { Box, ThemeProvider } from '@mui/material';
+import { Box, CircularProgress, Grid, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ColorModeContext } from 'shared/contexts/color-mode.context';
 import { useThemeColorMode } from 'shared/hooks/use-theme-color-mode.hook';
-import { Content } from 'components/layouts/content';
-import { Header } from 'components/layouts/header/header';
-import React, { useEffect } from 'react';
+import { MainRoutes } from 'routes/main-routes';
+import { AppBarMenu } from 'modules/app-bar/app-bar';
+import React, { useEffect, useState } from 'react';
 import { authService } from 'shared/domains/auth/auth.service';
 
-function App() {
+export function App() {
   const { mode, theme, toggleColorMode } = useThemeColorMode();
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    authService.authenticate();
+    setLoading(true);
+    authService.authenticate().finally(() => setLoading(false));
   }, []);
 
   return (
@@ -25,12 +27,16 @@ function App() {
             minHeight: '100vh',
           }}
         >
-          <Header />
-          <Content />
+          <AppBarMenu />
+          {isLoading ? (
+            <Grid sx={{ p: 3 }} container justifyContent="center">
+              <CircularProgress />
+            </Grid>
+          ) : (
+            <MainRoutes />
+          )}
         </Box>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
 }
-
-export default App;

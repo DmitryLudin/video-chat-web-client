@@ -8,7 +8,7 @@ function PrivateRouteObserver({ children }: { children: JSX.Element }) {
   const isAuthorized = authService.store.isAuthorized;
 
   if (!isAuthorized) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/log-in" state={{ from: location }} replace />;
   }
 
   return children;

@@ -1,32 +1,26 @@
 import { LockOutlined } from '@mui/icons-material';
-import LoadingButton from '@mui/lab/LoadingButton';
 import { Avatar, Box, Container, Grid, Link, Typography } from '@mui/material';
-import { LogInPasswordField } from 'modules/log-in/password-field';
-import { LogInUsernameField } from 'modules/log-in/username-field';
-import React, { useEffect } from 'react';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { RegisterDisplayNameField } from 'modules/registration/display-name-field';
+import { RegisterPasswordField } from 'modules/registration/password-field';
+import { RegisterUsernameField } from 'modules/registration/username-field';
+import React, { useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import {
-  Link as LinkRouter,
-  Navigate,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Link as LinkRouter, useNavigate } from 'react-router-dom';
 import { authService } from 'shared/domains/auth/auth.service';
-import { ILogInDto } from 'shared/domains/auth/dto';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
-const initFormState = { username: '', password: '' };
+const initFormState = { username: '', displayName: '', password: '' };
+type TFormState = typeof initFormState;
 
-export function LoginPageObserver() {
+export function RegistrationPageObserver() {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const stateWithFrom = state as { from?: Location } | undefined;
-  const { isAuthorized, error } = authService.store;
   const methods = useForm({
     mode: 'onSubmit',
     defaultValues: initFormState,
   });
   const { handleSubmit, formState, setError } = methods;
+  const { error } = authService.store;
 
   useEffect(() => {
     if (error) {
@@ -35,15 +29,14 @@ export function LoginPageObserver() {
     }
   }, [error]);
 
-  const onSubmit = (data: ILogInDto) => {
-    return authService.logIn(data).then((user) => {
-      if (user) navigate(stateWithFrom?.from?.pathname || '/');
-    });
-  };
-
-  if (isAuthorized) {
-    return <Navigate to={stateWithFrom?.from?.pathname || '/'} replace />;
-  }
+  const onSubmit = useCallback(
+    (data: TFormState) => {
+      return authService.register(data).then((user) => {
+        if (user) navigate('/');
+      });
+    },
+    [navigate]
+  );
 
   return (
     <FormProvider {...methods}>
@@ -56,17 +49,19 @@ export function LoginPageObserver() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'success.main' }}>
             <LockOutlined />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Авторизация
+            Регистрация
           </Typography>
 
           <Box sx={{ mt: 1, width: '100%' }}>
-            <LogInUsernameField />
-            <LogInPasswordField />
+            <RegisterUsernameField />
+            <RegisterDisplayNameField />
+            <RegisterPasswordField />
             <LoadingButton
+              type="submit"
               size="large"
               fullWidth
               onClick={handleSubmit(onSubmit)}
@@ -74,11 +69,11 @@ export function LoginPageObserver() {
               variant="contained"
               sx={{ mt: 2, mb: 2 }}
             >
-              Войти
+              Отправить
             </LoadingButton>
             <Grid container justifyContent="flex-end">
-              <LinkRouter to="/register">
-                <Link variant="body2">Нет учетной записи? Создать</Link>
+              <LinkRouter to="/log-in">
+                <Link variant="body2">Уже есть учетная запись? Войти</Link>
               </LinkRouter>
             </Grid>
           </Box>
@@ -88,4 +83,4 @@ export function LoginPageObserver() {
   );
 }
 
-export const LoginPage = withObserverMemo(LoginPageObserver);
+export const RegistrationPage = withObserverMemo(RegistrationPageObserver);

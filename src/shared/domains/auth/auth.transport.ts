@@ -8,17 +8,17 @@ export class AuthTransport extends BaseTransport {
   }
 
   authenticate() {
-    return this.get<User>(this.basePath).then(this.deserialize(User));
+    return this.get(this.basePath).then(this.deserialize(User));
   }
 
   register(data: IRegisterDto) {
-    return this.post<User>(`${this.basePath}/register`, data).then(
+    return this.post(`${this.basePath}/register`, data).then(
       this.deserialize(User)
     );
   }
 
   logIn(data: ILogInDto) {
-    return this.post<User>(`${this.basePath}/log-in`, data).then(
+    return this.post(`${this.basePath}/log-in`, data).then(
       this.deserialize(User)
     );
   }

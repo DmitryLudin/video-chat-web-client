@@ -9,6 +9,7 @@ import { userService, UserService } from 'shared/domains/user/user.service';
 
 type TAuthStore = {
   isAuthorized: boolean;
+  authError?: TRequestError;
 };
 
 const initialAuthState: TAuthStore = {
@@ -28,49 +29,57 @@ class AuthService {
   ) {}
 
   authenticate() {
-    this.transport
+    return this.transport
       .authenticate()
       .then((user) => {
         this.userService.setUser(user);
         this._store.updateStore({ isAuthorized: true });
       })
       .catch((error: TRequestError) => {
-        this._store.setError(error);
+        this._store.updateStore({ authError: error });
       });
   }
 
   logIn(userData: ILogInDto) {
     this._store.setLoading(true);
 
-    this.transport
+    return this.transport
       .logIn(userData)
       .then((user) => {
         this.userService.setUser(user);
         this._store.updateStore({ isAuthorized: true });
+        this._store.setError();
+        return user;
       })
       .catch(this._store.setError)
       .finally(() => this._store.setLoading(false));
   }
 
-  logOut(): Promise<boolean | void> {
+  logOut() {
+    this._store.setLoading(true);
     return this.transport
       .logOut()
-      .then(() => true)
-      .catch(this._store.setError);
+      .then(() => {
+        this._store.resetStore();
+        this.userService.setUser(null);
+      })
+      .catch(this._store.setError)
+      .finally(() => this._store.setLoading(false));
   }
 
-  async register(userData: IRegisterDto) {
-    try {
-      this._store.setLoading(true);
-      await this.transport.register(userData);
-      const user = await this.transport.logIn(userData);
-      this.userService.setUser(user);
-      this._store.updateStoreValue('isAuthorized', true);
-    } catch (error: unknown) {
-      this._store.setError(error as TRequestError);
-    } finally {
-      this._store.setLoading(false);
-    }
+  register(userData: IRegisterDto) {
+    this._store.setLoading(true);
+
+    return this.transport
+      .register(userData)
+      .then(() => this.transport.logIn(userData))
+      .then((user) => {
+        this.userService.setUser(user);
+        this._store.updateStoreValue('isAuthorized', true);
+        return user;
+      })
+      .catch(this._store.setError)
+      .finally(() => this._store.setLoading(false));
   }
 }
 

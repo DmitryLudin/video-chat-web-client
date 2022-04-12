@@ -16,13 +16,3 @@ export type TDeserializeReturn<T> = (response: TResponse<T>) => T;
 export type TDeserializeArrayReturn<T> = (
   response: TResponse<Array<unknown>>
 ) => Array<T>;
-
-export type THttpMethod =
-  | 'GET'
-  | 'DELETE'
-  | 'HEAD'
-  | 'OPTIONS'
-  | 'POST'
-  | 'PUT'
-  | 'PATCH'
-  | 'LINK';
