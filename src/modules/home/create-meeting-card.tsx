@@ -2,19 +2,26 @@ import VideoCameraFrontRoundedIcon from '@mui/icons-material/VideoCameraFrontRou
 import { HomePageCard } from 'modules/home/components/card';
 import React, { MouseEventHandler, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
+import { meetingService } from 'shared/domains/meeting/meeting.service';
+import { IUser } from 'shared/domains/user/user.model';
+import { userService } from 'shared/domains/user/user.service';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
-export function HomeCreateMeetingCard() {
+function HomeCreateMeetingCardObserver() {
   const navigate = useNavigate();
+  const user = userService.store.user as IUser;
 
   const handleNavigateToMeeting: MouseEventHandler<HTMLDivElement> =
     useCallback(
       (e) => {
         e.preventDefault();
-        const id = uuidv4();
-        navigate(`meeting/${id}`);
+        void meetingService.create({ ownerId: user.id }).then((meeting) => {
+          if (meeting) {
+            navigate(`meeting/${meeting.id}`);
+          }
+        });
       },
-      [navigate]
+      [navigate, user.id]
     );
 
   return (
@@ -32,3 +39,7 @@ export function HomeCreateMeetingCard() {
     />
   );
 }
+
+export const HomeCreateMeetingCard = withObserverMemo(
+  HomeCreateMeetingCardObserver
+);

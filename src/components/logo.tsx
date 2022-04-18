@@ -13,7 +13,7 @@ export function Logo() {
       />
       <Typography
         variant="h4"
-        component="p"
+        component="div"
         sx={{
           fontWeight: 600,
           display: { sm: 'flex', xs: 'none' },

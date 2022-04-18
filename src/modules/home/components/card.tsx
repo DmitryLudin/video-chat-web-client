@@ -30,7 +30,7 @@ export const HomePageCard = React.memo(function HomePageCardMemo({
             <Grid flexGrow={1} item>
               {icon}
             </Grid>
-            <Grid item direction="column">
+            <Grid item>
               <Typography sx={{ color: 'primary.contrastText' }} variant="h6">
                 {title}
               </Typography>

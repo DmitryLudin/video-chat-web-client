@@ -6,7 +6,7 @@ import { RegisterPasswordField } from 'modules/registration/password-field';
 import { RegisterUsernameField } from 'modules/registration/username-field';
 import React, { useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
-import { Link as LinkRouter, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { authService } from 'shared/domains/auth/auth.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
@@ -72,9 +72,9 @@ export function RegistrationPageObserver() {
               Отправить
             </LoadingButton>
             <Grid container justifyContent="flex-end">
-              <LinkRouter to="/log-in">
-                <Link variant="body2">Уже есть учетная запись? Войти</Link>
-              </LinkRouter>
+              <Link to="/log-in" component={RouterLink} variant="body2">
+                Уже есть учетная запись? Войти
+              </Link>
             </Grid>
           </Box>
         </Box>

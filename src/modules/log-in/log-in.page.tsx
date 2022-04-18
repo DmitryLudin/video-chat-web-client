@@ -6,7 +6,7 @@ import { LogInUsernameField } from 'modules/log-in/username-field';
 import React, { useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import {
-  Link as LinkRouter,
+  Link as RouterLink,
   Navigate,
   useLocation,
   useNavigate,
@@ -77,9 +77,9 @@ export function LoginPageObserver() {
               Войти
             </LoadingButton>
             <Grid container justifyContent="flex-end">
-              <LinkRouter to="/register">
-                <Link variant="body2">Нет учетной записи? Создать</Link>
-              </LinkRouter>
+              <Link to="/register" variant="body2" component={RouterLink}>
+                Нет учетной записи? Создать
+              </Link>
             </Grid>
           </Box>
         </Box>

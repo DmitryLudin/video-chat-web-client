@@ -49,10 +49,14 @@ export abstract class BaseTransport {
     })
       .then((response: AxiosResponse) => response)
       .catch((error: AxiosError<TRequestError>) => {
-        if (isRequestError(error.response?.data)) {
+        if (error.response && isRequestError(error.response?.data)) {
           return Promise.reject(error.response?.data);
         }
-        return Promise.reject(error);
+
+        return Promise.reject({
+          message: error.message,
+          statusCode: error.code,
+        });
       });
   }
 }
