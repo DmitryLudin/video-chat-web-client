@@ -1,5 +1,5 @@
 import { BaseTransport } from 'core/base-transport';
-import { ICreateMeetingDto } from 'shared/domains/meeting/dto';
+import { ICreateMeetingDto, IJoinMeetingDto } from 'shared/domains/meeting/dto';
 import { Meeting } from 'shared/domains/meeting/models/meeting.model';
 
 export class MeetingTransport extends BaseTransport {
@@ -13,8 +13,15 @@ export class MeetingTransport extends BaseTransport {
     );
   }
 
-  getById(meetingId: string) {
-    return this.get(`${this.basePath}/${meetingId}`).then(
+  joinMeeting(meetingId: string, joinMeetingData: IJoinMeetingDto) {
+    return this.post(
+      `${this.basePath}/${meetingId}/join-meeting`,
+      joinMeetingData
+    ).then(this.deserialize(Meeting));
+  }
+
+  getByUserId(meetingId: string, userId: number) {
+    return this.get(`${this.basePath}/${meetingId}/${userId}`).then(
       this.deserialize(Meeting)
     );
   }

@@ -15,6 +15,7 @@ import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import { useParams } from 'react-router-dom';
 import { meetingService } from 'shared/domains/meeting/meeting.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 export function MembersObserver() {
   const { id } = useParams() as { id: string };
@@ -40,8 +41,9 @@ export function MembersObserver() {
                   void navigator.clipboard.writeText(id);
                 }}
                 size="small"
+                startIcon={<ContentCopyIcon />}
               >
-                Скопировать ID встречи
+                ID встречи
               </Button>
             </Grid>
           </ListSubheader>
@@ -62,7 +64,11 @@ export function MembersObserver() {
             }
           >
             <ListItemText
-              primary={member.user.displayName || member.user.username}
+              primary={
+                member.displayName ||
+                member.user.displayName ||
+                member.user.username
+              }
             />
           </ListItem>
         ))}

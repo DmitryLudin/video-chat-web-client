@@ -1,5 +1,9 @@
 import { RequestStore } from 'core';
-import { ICreateMeetingDto } from 'shared/domains/meeting/dto';
+import {
+  ICreateMeetingDto,
+  IJoinMeetingDto,
+  ISendJoinMeetingDto,
+} from 'shared/domains/meeting/dto';
 import { IMeeting, IMember } from 'shared/domains/meeting/models';
 import {
   MeetingTransport,
@@ -35,13 +39,14 @@ class MeetingService {
     private readonly userService: UserService
   ) {}
 
-  getById(meetingId: string) {
+  getByUserId(meetingId: string, userId: number) {
     this._store.setLoading(true);
 
     return this.transport
-      .getById(meetingId)
+      .getByUserId(meetingId, userId)
       .then((meeting) => {
         this._store.updateStore({ meeting });
+        return meeting;
       })
       .catch(this._store.setError)
       .finally(() => this._store.setLoading(false));
@@ -60,10 +65,25 @@ class MeetingService {
       .finally(() => this._store.setLoading(false));
   }
 
-  connect(meetingId: string) {
-    this.wsTransport.connect(() => {
-      this.joinMeeting(meetingId);
-    });
+  joinMeeting(meetingId: string, joinMeetingData: IJoinMeetingDto) {
+    this._store.setLoading(true);
+
+    return this.transport
+      .joinMeeting(meetingId, joinMeetingData)
+      .then((meeting) => {
+        this._store.updateStore({ meeting });
+        return meeting;
+      })
+      .catch(this._store.setError)
+      .finally(() => this._store.setLoading(false));
+  }
+
+  resetStore() {
+    this._store.resetStore();
+  }
+
+  connect() {
+    this.wsTransport.connect();
     this.wsTransport.listenJoinMeeting((data) =>
       this._store.updateStore({ ...data })
     );
@@ -72,17 +92,17 @@ class MeetingService {
     );
   }
 
-  joinMeeting(meetingId: string) {
-    this.wsTransport.sendJoinMeeting(meetingId);
+  sendJoinMeeting(joinMeetingData: ISendJoinMeetingDto) {
+    this.wsTransport.sendJoinMeeting(joinMeetingData);
   }
 
-  leaveMeeting(meetingId: string) {
-    const user = this.userService.store.user as IUser;
-    const member = this._store
-      .getStore()
-      .meeting?.members.find((member) => member.user.id === user.id) as IMember;
-    this.wsTransport.sendLeaveMeeting({ meetingId, memberId: member.id });
-    this.wsTransport.disconnect();
+  disconnect() {
+    const meeting = this._store.getStore().meeting;
+    console.log(meeting);
+    if (meeting) {
+      console.log('disconnect');
+      this.wsTransport.disconnect();
+    }
   }
 }
 

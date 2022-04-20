@@ -7,14 +7,13 @@ const baseWsUrl = REACT_APP_API_WS_URL as string;
 export class WsTransport {
   protected socket!: Socket | null;
 
-  connect(callback: () => void) {
+  connect(callback?: () => void) {
     this.socket = io(baseWsUrl, {
       withCredentials: true,
       transports: ['websocket', 'polling'],
     });
     this.socket.on('connect', () => {
-      console.log(this.socket?.connected);
-      callback();
+      callback && callback();
     });
   }
 
