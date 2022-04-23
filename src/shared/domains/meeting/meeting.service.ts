@@ -1,9 +1,5 @@
 import { RequestStore } from 'core';
-import {
-  ICreateMeetingDto,
-  IJoinMeetingDto,
-  ISendJoinMeetingDto,
-} from 'shared/domains/meeting/dto';
+import { ICreateMeetingDto, IJoinMeetingDto } from 'shared/domains/meeting/dto';
 import { IMeeting, IMember } from 'shared/domains/meeting/models';
 import {
   MeetingTransport,
@@ -11,17 +7,19 @@ import {
   meetingWsTransport,
   MeetingWsTransport,
 } from 'shared/domains/meeting/transports';
-import { IUser } from 'shared/domains/user/user.model';
-import { userService, UserService } from 'shared/domains/user/user.service';
 
 type TMeetingStore = {
   messages: string[];
   meeting: IMeeting | null;
+  members: IMember[];
+  isMeetingOver: boolean;
 };
 
 const initialMeetingState: TMeetingStore = {
   messages: [],
   meeting: null,
+  members: [],
+  isMeetingOver: false,
 };
 
 class MeetingService {
@@ -35,17 +33,17 @@ class MeetingService {
 
   constructor(
     private readonly transport: MeetingTransport,
-    private readonly wsTransport: MeetingWsTransport,
-    private readonly userService: UserService
+    private readonly wsTransport: MeetingWsTransport
   ) {}
 
-  getByUserId(meetingId: string, userId: number) {
+  async getByUserId(meetingId: string, userId: number) {
     this._store.setLoading(true);
 
     return this.transport
       .getByUserId(meetingId, userId)
       .then((meeting) => {
         this._store.updateStore({ meeting });
+
         return meeting;
       })
       .catch(this._store.setError)
@@ -59,6 +57,7 @@ class MeetingService {
       .create(meetingData)
       .then((meeting) => {
         this._store.updateStore({ meeting });
+
         return meeting;
       })
       .catch(this._store.setError)
@@ -72,42 +71,36 @@ class MeetingService {
       .joinMeeting(meetingId, joinMeetingData)
       .then((meeting) => {
         this._store.updateStore({ meeting });
+
         return meeting;
       })
       .catch(this._store.setError)
       .finally(() => this._store.setLoading(false));
   }
 
-  resetStore() {
-    this._store.resetStore();
-  }
-
   connect() {
     this.wsTransport.connect();
-    this.wsTransport.listenJoinMeeting((data) =>
-      this._store.updateStore({ ...data })
+    this.wsTransport.listenJoinMeeting(({ meeting }) =>
+      this._store.updateStore({ meeting })
     );
-    this.wsTransport.listenLeaveMeeting((data) =>
-      this._store.updateStore({ ...data })
+    this.wsTransport.listenLeaveMeeting(({ meeting }) =>
+      this._store.updateStore({ meeting })
     );
-  }
-
-  sendJoinMeeting(joinMeetingData: ISendJoinMeetingDto) {
-    this.wsTransport.sendJoinMeeting(joinMeetingData);
+    this.wsTransport.listenEndMeeting(({ isMeetingOver }) =>
+      this._store.updateStore({ isMeetingOver })
+    );
   }
 
   disconnect() {
-    const meeting = this._store.getStore().meeting;
-    console.log(meeting);
-    if (meeting) {
-      console.log('disconnect');
-      this.wsTransport.disconnect();
-    }
+    this.wsTransport.disconnect();
+  }
+
+  resetStore() {
+    this._store.resetStore();
   }
 }
 
 export const meetingService = new MeetingService(
   meetingTransport,
-  meetingWsTransport,
-  userService
+  meetingWsTransport
 );

@@ -1,10 +1,10 @@
-export type TRequestError = { message: string; statusCode: number };
+export type TRequestError = { message: string; code: string };
 
 export function isRequestError(
   data: unknown | TRequestError
 ): data is TRequestError {
   const error = data as TRequestError;
-  return error.message !== undefined && error.statusCode !== undefined;
+  return error.message !== undefined && error.code !== undefined;
 }
 
 export type TResponse<T> = {

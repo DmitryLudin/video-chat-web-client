@@ -18,10 +18,10 @@ const Transition = React.forwardRef(function Transition(
 });
 
 type TProps = {
-  buttons: JSX.Element;
+  buttons?: JSX.Element;
   title: string;
   isOpen: boolean;
-  onClose: VoidFunction;
+  onClose?: VoidFunction;
 };
 
 export function Modal({
@@ -41,7 +41,7 @@ export function Modal({
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions>{buttons}</DialogActions>
+      {buttons && <DialogActions>{buttons}</DialogActions>}
     </Dialog>
   );
 }

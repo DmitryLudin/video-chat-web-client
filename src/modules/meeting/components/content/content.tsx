@@ -2,8 +2,9 @@ import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
 import { MeetingMainSpeaker } from 'modules/meeting/components/content/main-speaker';
 import { MeetingSmallSpeaker } from 'modules/meeting/components/content/small-speaker';
 import React from 'react';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
-export function MeetingContent() {
+export function MeetingContentObserver() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -38,3 +39,5 @@ export function MeetingContent() {
     </Box>
   );
 }
+
+export const MeetingContent = withObserverMemo(MeetingContentObserver);

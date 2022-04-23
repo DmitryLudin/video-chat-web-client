@@ -1,5 +1,6 @@
-import { Button, Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import { ChatDrawerMobile } from 'modules/meeting/components/footer/chat-drawer-mobile';
+import { EndMeetingControl } from 'modules/meeting/components/footer/end-meeting-control';
 import { FooterLeftControls } from 'modules/meeting/components/footer/left-controls';
 import { MembersDrawerMobile } from 'modules/meeting/components/footer/members-drawer-mobile';
 import { FooterRightControls } from 'modules/meeting/components/footer/right-controls';
@@ -31,13 +32,7 @@ export function MeetingFooter() {
         <Grid container alignItems="center" justifyContent="space-between">
           <FooterLeftControls />
 
-          <Button
-            sx={{ borderRadius: 3, p: 2 }}
-            variant="contained"
-            color="error"
-          >
-            Завершить
-          </Button>
+          <EndMeetingControl />
 
           <FooterRightControls />
         </Grid>

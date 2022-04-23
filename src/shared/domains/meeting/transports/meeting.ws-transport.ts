@@ -1,12 +1,7 @@
 import { WsTransport } from 'core/base-ws-transport';
-import {
-  ILeaveMeetingDto,
-  ISendJoinMeetingDto,
-} from 'shared/domains/meeting/dto';
 import { IMeeting } from 'shared/domains/meeting/models';
 
 export enum VideoChatAction {
-  CREATE_MEETING = 'create_meeting',
   JOIN_MEETING = 'join_meeting',
   END_MEETING = 'end_meeting',
   LEAVE_MEETING = 'leave_meeting',
@@ -15,17 +10,16 @@ export enum VideoChatAction {
 }
 
 export class MeetingWsTransport extends WsTransport {
-  sendJoinMeeting(meetingData: ISendJoinMeetingDto) {
-    return this.send(VideoChatAction.JOIN_MEETING, meetingData);
-  }
-
-  sendLeaveMeeting(data: ILeaveMeetingDto) {
-    return this.send(VideoChatAction.LEAVE_MEETING, data);
-  }
-
   listenJoinMeeting(callback: (data: { meeting: IMeeting }) => void) {
     return this.listen<{ meeting: IMeeting }>(
       VideoChatAction.JOIN_MEETING,
+      callback
+    );
+  }
+
+  listenEndMeeting(callback: (data: { isMeetingOver: boolean }) => void) {
+    return this.listen<{ isMeetingOver: boolean }>(
+      VideoChatAction.END_MEETING,
       callback
     );
   }

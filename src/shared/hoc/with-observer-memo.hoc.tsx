@@ -1,8 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import React, { FunctionComponent } from 'react';
 
-export function withObserverMemo(
-  component: FunctionComponent<Record<string, object>>,
+export function withObserverMemo<T extends object>(
+  component: FunctionComponent<T>,
   isMemo = false
 ) {
   if (isMemo) {
