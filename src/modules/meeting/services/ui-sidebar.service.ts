@@ -17,6 +17,11 @@ class UiSidebarService {
     return this._store.getStore();
   }
 
+  get isSidebarOpen() {
+    const { isChatOpen, isMembersListOpen } = this._store.getStore();
+    return isChatOpen || isMembersListOpen;
+  }
+
   onToggleChat = () => {
     const isChatOpen = this._store.getStore().isChatOpen;
     this._store.updateStoreValue('isChatOpen', !isChatOpen);
@@ -30,11 +35,6 @@ class UiSidebarService {
   onSetSidebarOpen = (value: boolean) => {
     this._store.updateStore({ isChatOpen: value, isMembersListOpen: false });
   };
-
-  get isSidebarOpen() {
-    const { isChatOpen, isMembersListOpen } = this._store.getStore();
-    return isChatOpen || isMembersListOpen;
-  }
 }
 
 export const uiSidebarService = new UiSidebarService();

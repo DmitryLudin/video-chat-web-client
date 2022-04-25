@@ -33,7 +33,7 @@ export function LoginPageObserver() {
       setError('password', { message: error.message });
       setError('username', { message: error.message });
     }
-  }, [error]);
+  }, [error, setError]);
 
   const onSubmit = (data: ILogInDto) => {
     return authService.logIn(data).then((user) => {

@@ -1,9 +1,17 @@
 import { Close } from '@mui/icons-material';
 import ReplyIcon from '@mui/icons-material/Reply';
 import { Box, Divider, Grid, IconButton, Typography } from '@mui/material';
+import { uiChatService } from 'modules/meeting/services/ui-chat.service';
 import React from 'react';
+import { IMessage } from 'shared/domains/meeting/models';
 
-export function ReplyMessage({ onClose }: { onClose: () => void }) {
+type TProps = {
+  message: IMessage;
+};
+
+export function ReplyMessage({ message }: TProps) {
+  const { author, text } = message;
+
   return (
     <Grid
       container
@@ -28,13 +36,15 @@ export function ReplyMessage({ onClose }: { onClose: () => void }) {
             textOverflow: 'ellipsis',
           }}
         >
-          <Typography variant="subtitle1">Remy Sharp</Typography>
+          <Typography variant="subtitle1">
+            {author.displayName || author.username}
+          </Typography>
           <Typography color="text.secondary" variant="subtitle2" noWrap>
-            Ill be in your neighborhood doing errands this
+            {text}
           </Typography>
         </Box>
       </Box>
-      <IconButton onClick={onClose}>
+      <IconButton onClick={uiChatService.resetStore}>
         <Close />
       </IconButton>
     </Grid>

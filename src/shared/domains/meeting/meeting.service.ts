@@ -1,6 +1,10 @@
 import { RequestStore } from 'core';
-import { ICreateMeetingDto, IJoinMeetingDto } from 'shared/domains/meeting/dto';
-import { IMeeting, IMember } from 'shared/domains/meeting/models';
+import {
+  IAddMessageDto,
+  ICreateMeetingDto,
+  IJoinMeetingDto,
+} from 'shared/domains/meeting/dto';
+import { IMeeting, IMessage } from 'shared/domains/meeting/models';
 import {
   MeetingTransport,
   meetingTransport,
@@ -9,16 +13,14 @@ import {
 } from 'shared/domains/meeting/transports';
 
 type TMeetingStore = {
-  messages: string[];
+  messages: IMessage[];
   meeting: IMeeting | null;
-  members: IMember[];
   isMeetingOver: boolean;
 };
 
 const initialMeetingState: TMeetingStore = {
   messages: [],
   meeting: null,
-  members: [],
   isMeetingOver: false,
 };
 
@@ -80,8 +82,8 @@ class MeetingService {
 
   connect() {
     this.wsTransport.connect();
-    this.wsTransport.listenJoinMeeting(({ meeting }) =>
-      this._store.updateStore({ meeting })
+    this.wsTransport.listenJoinMeeting(({ meeting, messages }) =>
+      this._store.updateStore({ meeting, messages })
     );
     this.wsTransport.listenLeaveMeeting(({ meeting }) =>
       this._store.updateStore({ meeting })
@@ -89,6 +91,13 @@ class MeetingService {
     this.wsTransport.listenEndMeeting(({ isMeetingOver }) =>
       this._store.updateStore({ isMeetingOver })
     );
+    this.wsTransport.listenMessages(({ messages }) => {
+      this._store.updateStore({ messages });
+    });
+  }
+
+  sendMessage(messageData: IAddMessageDto) {
+    this.wsTransport.sendMessage(messageData);
   }
 
   disconnect() {

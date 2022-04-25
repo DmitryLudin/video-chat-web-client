@@ -6,10 +6,15 @@ import PeopleIcon from '@mui/icons-material/People';
 import { FooterActionControl } from 'modules/meeting/components/footer/action-control';
 import { uiSidebarService } from 'modules/meeting/services/ui-sidebar.service';
 import React, { useCallback } from 'react';
+import { meetingService } from 'shared/domains/meeting/meeting.service';
+import { IMeeting } from 'shared/domains/meeting/models';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
-export function FooterMoreControl() {
+function FooterMoreControlObserver() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const meeting = meetingService.store.meeting as IMeeting;
+  const messages = meetingService.store.messages;
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -47,7 +52,7 @@ export function FooterMoreControl() {
           <ListItemIcon>
             <PeopleIcon fontSize="small" />
           </ListItemIcon>
-          Участники (4)
+          Участники ({meeting.members.length || 0})
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
@@ -59,9 +64,11 @@ export function FooterMoreControl() {
           <ListItemIcon>
             <ChatIcon fontSize="small" />
           </ListItemIcon>
-          Чат (200)
+          Чат ({messages.length})
         </MenuItem>
       </Menu>
     </>
   );
 }
+
+export const FooterMoreControl = withObserverMemo(FooterMoreControlObserver);

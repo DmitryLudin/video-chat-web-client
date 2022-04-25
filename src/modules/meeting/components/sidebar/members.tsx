@@ -24,7 +24,14 @@ export function MembersObserver() {
   const { meeting } = meetingService.store;
 
   return (
-    <Box sx={{ overflow: 'hidden', height: 'inherit', maxHeight: '100%' }}>
+    <Box
+      sx={{
+        overflow: 'hidden',
+        height: 'inherit',
+        maxHeight: '100%',
+        flex: '1',
+      }}
+    >
       <List
         sx={{
           position: 'relative',

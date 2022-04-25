@@ -27,7 +27,7 @@ export function RegistrationPageObserver() {
       setError('password', { message: error.message });
       setError('username', { message: error.message });
     }
-  }, [error]);
+  }, [error, setError]);
 
   const onSubmit = useCallback(
     (data: TFormState) => {

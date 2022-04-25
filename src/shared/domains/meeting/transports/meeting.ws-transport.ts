@@ -1,5 +1,6 @@
 import { WsTransport } from 'core/base-ws-transport';
-import { IMeeting } from 'shared/domains/meeting/models';
+import { IAddMessageDto } from 'shared/domains/meeting/dto';
+import { IMeeting, IMessage } from 'shared/domains/meeting/models';
 
 export enum VideoChatAction {
   JOIN_MEETING = 'join_meeting',
@@ -10,8 +11,10 @@ export enum VideoChatAction {
 }
 
 export class MeetingWsTransport extends WsTransport {
-  listenJoinMeeting(callback: (data: { meeting: IMeeting }) => void) {
-    return this.listen<{ meeting: IMeeting }>(
+  listenJoinMeeting(
+    callback: (data: { meeting: IMeeting; messages: IMessage[] }) => void
+  ) {
+    return this.listen<{ meeting: IMeeting; messages: IMessage[] }>(
       VideoChatAction.JOIN_MEETING,
       callback
     );
@@ -27,6 +30,17 @@ export class MeetingWsTransport extends WsTransport {
   listenLeaveMeeting(callback: (data: { meeting: IMeeting }) => void) {
     return this.listen<{ meeting: IMeeting }>(
       VideoChatAction.LEAVE_MEETING,
+      callback
+    );
+  }
+
+  sendMessage(addMessageData: IAddMessageDto) {
+    return this.send(VideoChatAction.SEND_MESSAGE, addMessageData);
+  }
+
+  listenMessages(callback: (data: { messages: IMessage[] }) => void) {
+    return this.listen<{ messages: IMessage[] }>(
+      VideoChatAction.MESSAGES,
       callback
     );
   }

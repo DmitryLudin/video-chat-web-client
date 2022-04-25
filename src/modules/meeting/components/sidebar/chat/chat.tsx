@@ -8,17 +8,20 @@ import {
 import { ChatFooter } from 'modules/meeting/components/sidebar/chat/footer';
 import { Message } from 'modules/meeting/components/sidebar/chat/message/message';
 import React from 'react';
+import { meetingService } from 'shared/domains/meeting/meeting.service';
+import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
-export function Chat() {
+function ChatObserver() {
   const theme = useTheme();
   const isTableOrMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const messages = meetingService.store.messages;
 
   return (
     <Box
       sx={{
         display: 'grid',
         flexDirection: 'column',
-        flexGrow: 1,
+        flex: 2,
         overflow: 'hidden',
       }}
     >
@@ -30,16 +33,22 @@ export function Chat() {
         }}
       >
         <List subheader={<ListSubheader>Чат</ListSubheader>}>
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
-          <Message />
+          {messages.map((message, index) => {
+            const prevMessage = messages[index - 1];
+
+            return (
+              <Message
+                key={message.id}
+                message={message}
+                isHideDetails={prevMessage?.author?.id === message.author.id}
+              />
+            );
+          })}
         </List>
       </Box>
       <ChatFooter />
     </Box>
   );
 }
+
+export const Chat = withObserverMemo(ChatObserver);

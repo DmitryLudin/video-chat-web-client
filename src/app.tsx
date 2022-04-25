@@ -1,11 +1,14 @@
 import { Box, CircularProgress, Grid, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import dayjs from 'dayjs';
 import { ColorModeContext } from 'shared/contexts/color-mode.context';
 import { useThemeColorMode } from 'shared/hooks/use-theme-color-mode.hook';
 import { MainRoutes } from 'routes/main-routes';
 import { AppBarMenu } from 'modules/app-bar/app-bar';
 import React, { useEffect, useState } from 'react';
 import { authService } from 'shared/domains/auth/auth.service';
+
+dayjs.locale('ru');
 
 export function App() {
   const { mode, theme, toggleColorMode } = useThemeColorMode();
