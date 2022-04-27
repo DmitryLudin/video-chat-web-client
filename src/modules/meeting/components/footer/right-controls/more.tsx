@@ -3,7 +3,7 @@ import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import { ListItemIcon, Menu, MenuItem } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import PeopleIcon from '@mui/icons-material/People';
-import { FooterActionControl } from 'modules/meeting/components/footer/action-control';
+import { FooterActionControl } from 'modules/meeting/components/footer/components';
 import { uiSidebarService } from 'modules/meeting/services/ui-sidebar.service';
 import React, { useCallback } from 'react';
 import { meetingService } from 'shared/domains/meeting/meeting.service';
@@ -54,12 +54,14 @@ function FooterMoreControlObserver() {
           </ListItemIcon>
           Участники ({meeting.members.length || 0})
         </MenuItem>
+
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <ScreenShareIcon fontSize="small" />
           </ListItemIcon>
           Поделиться экраном
         </MenuItem>
+
         <MenuItem onClick={handleOpenChat}>
           <ListItemIcon>
             <ChatIcon fontSize="small" />

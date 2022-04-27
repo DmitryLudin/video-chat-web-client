@@ -1,14 +1,14 @@
 import { Type } from 'class-transformer';
 import { IsDate, IsString, ValidateNested } from 'class-validator';
-import { User } from 'shared/domains/user/user.model';
+import { Member } from 'shared/domains/meeting/models/member.model';
 
 export interface IMessage {
   id: string;
   text: string;
   meetingId: string;
-  author: User;
+  author: Member;
   reply: Message;
-  createdAt: Date;
+  createdAt: string;
 }
 
 export class Message {
@@ -22,13 +22,13 @@ export class Message {
   meetingId!: string;
 
   @ValidateNested()
-  @Type(() => User)
-  author!: User;
+  @Type(() => Member)
+  author!: Member;
 
   @ValidateNested()
-  @Type(() => User)
+  @Type(() => Message)
   reply!: Message;
 
   @IsDate()
-  createdAt!: Date;
+  createdAt!: string;
 }

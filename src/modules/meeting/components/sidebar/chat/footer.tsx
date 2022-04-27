@@ -1,11 +1,11 @@
 import { Box, Fab, Grid, Paper, Stack, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { footerHeight } from 'modules/meeting/components/footer/footer';
-import { ReplyMessage } from 'modules/meeting/components/sidebar/chat/message/reply-message';
+import { ReplyFooterMessage } from 'modules/meeting/components/sidebar/chat/reply-footer-message';
 import { uiChatService } from 'modules/meeting/services/ui-chat.service';
 import React, { useCallback } from 'react';
 import { meetingService } from 'shared/domains/meeting/meeting.service';
-import { IMeeting } from 'shared/domains/meeting/models';
+import { IMeeting, IMember } from 'shared/domains/meeting/models';
 import { IUser } from 'shared/domains/user/user.model';
 import { userService } from 'shared/domains/user/user.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
@@ -23,16 +23,19 @@ function ChatFooterObserver() {
   const handleSend: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.preventDefault();
+      const member = meeting.members.find(
+        (member) => member.user.id === user.id
+      ) as IMember;
       meetingService.sendMessage({
         text: value,
         meetingId: meeting.id,
-        userId: user.id,
+        memberId: member.id,
         replyMessageId: replayMessage?.id,
       });
       uiChatService.resetStore();
       setValue('');
     },
-    [meeting.id, replayMessage?.id, user.id, value]
+    [meeting.id, meeting.members, replayMessage?.id, user.id, value]
   );
 
   return (
@@ -53,7 +56,8 @@ function ChatFooterObserver() {
     >
       <Box sx={{ width: '100%' }}>
         <Stack>
-          {replayMessage && <ReplyMessage message={replayMessage} />}
+          {replayMessage && <ReplyFooterMessage message={replayMessage} />}
+
           <form>
             <Grid container alignItems="center" spacing={1}>
               <Grid item flexGrow={1}>

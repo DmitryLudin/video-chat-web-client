@@ -25,14 +25,21 @@ type TProps = {
 function MessageObserver({ message, isHideDetails = false }: TProps) {
   const { author, createdAt, text, reply } = message;
   const user = userService.store.user as IUser;
-  const isSelf = user.id === author.id;
+  const isSelf = user.id === author.user.id;
   const displayName = useMemo(() => {
     if (isSelf) {
       return 'Ты';
     }
 
-    return author.displayName || author.username;
-  }, [author.displayName, author.username, isSelf]);
+    return (
+      author.displayName || author.user.displayName || author.user.username
+    );
+  }, [
+    author.displayName,
+    author.user.displayName,
+    author.user.username,
+    isSelf,
+  ]);
 
   const handleReplyMessage = useCallback(() => {
     uiChatService.selectReplyMessage(message);
@@ -44,7 +51,7 @@ function MessageObserver({ message, isHideDetails = false }: TProps) {
       sx={{ pb: 0, pt: !isHideDetails ? 2 : 0 }}
     >
       <ListItemAvatar>
-        {!isHideDetails && <Avatar alt={author.username} />}
+        {!isHideDetails && <Avatar alt={author.user.username} />}
       </ListItemAvatar>
       <ListItemText
         primary={

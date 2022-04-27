@@ -1,5 +1,5 @@
-import ReplyIcon from '@mui/icons-material/Reply';
-import { Box, Divider, Paper, Typography } from '@mui/material';
+import { Paper } from '@mui/material';
+import { ReplyMessage } from 'modules/meeting/components/sidebar/chat/message/reply-message';
 import React, { PropsWithChildren } from 'react';
 import { IMessage } from 'shared/domains/meeting/models';
 
@@ -20,38 +20,7 @@ export function MessageText({ children, reply }: PropsWithChildren<TProps>) {
       }}
       elevation={2}
     >
-      {reply && (
-        <Box
-          sx={{
-            display: 'grid',
-            gridAutoFlow: 'column',
-            mb: 1,
-            gap: '8px',
-            alignItems: 'center',
-          }}
-        >
-          <ReplyIcon fontSize="small" color="primary" />
-          <Divider variant="middle" orientation="vertical" />
-          <Box
-            sx={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            <Typography color="primary" fontSize="12px" variant="body2">
-              {reply.author.displayName || reply.author.username}
-            </Typography>
-            <Typography
-              color="text.secondary"
-              fontSize="12px"
-              variant="caption"
-              noWrap
-            >
-              {reply.text}
-            </Typography>
-          </Box>
-        </Box>
-      )}
+      {reply && <ReplyMessage message={reply} />}
       {children}
     </Paper>
   );

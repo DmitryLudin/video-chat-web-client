@@ -20,7 +20,7 @@ function MeetingOverModalObserver() {
   const handleCloseModal = useCallback(() => {
     navigate('/');
     handleClose();
-  }, [navigate]);
+  }, [handleClose, navigate]);
 
   return (
     <Modal

@@ -1,5 +1,5 @@
-import { FooterActionControl } from 'modules/meeting/components/footer/action-control';
 import VideocamIcon from '@mui/icons-material/Videocam';
+import { FooterActionControl } from 'modules/meeting/components/footer/components';
 import React from 'react';
 
 export function FooterVideoControl() {

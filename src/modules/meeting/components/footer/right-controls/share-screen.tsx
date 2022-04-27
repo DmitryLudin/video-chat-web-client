@@ -1,5 +1,5 @@
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
-import { FooterActionControl } from 'modules/meeting/components/footer/action-control';
+import { FooterActionControl } from 'modules/meeting/components/footer/components';
 import React from 'react';
 
 export function FooterShareScreenControl() {

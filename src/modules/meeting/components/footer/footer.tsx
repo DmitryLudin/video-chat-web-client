@@ -1,8 +1,10 @@
 import { Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
-import { ChatDrawerMobile } from 'modules/meeting/components/footer/chat-drawer-mobile';
+import {
+  ChatDrawerMobile,
+  MembersDrawerMobile,
+} from 'modules/meeting/components/footer/drawers';
 import { EndMeetingControl } from 'modules/meeting/components/footer/end-meeting-control';
 import { FooterLeftControls } from 'modules/meeting/components/footer/left-controls';
-import { MembersDrawerMobile } from 'modules/meeting/components/footer/members-drawer-mobile';
 import { FooterRightControls } from 'modules/meeting/components/footer/right-controls';
 import React from 'react';
 

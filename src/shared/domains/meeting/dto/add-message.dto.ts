@@ -1,6 +1,6 @@
 export interface IAddMessageDto {
   text: string;
   meetingId: string;
-  userId: number;
+  memberId: string;
   replyMessageId?: string;
 }

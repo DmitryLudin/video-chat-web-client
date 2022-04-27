@@ -1,7 +1,5 @@
-import { Close } from '@mui/icons-material';
 import ReplyIcon from '@mui/icons-material/Reply';
-import { Box, Divider, Grid, IconButton, Typography } from '@mui/material';
-import { uiChatService } from 'modules/meeting/services/ui-chat.service';
+import { Box, Divider, Typography } from '@mui/material';
 import React from 'react';
 import { IMessage } from 'shared/domains/meeting/models';
 
@@ -10,43 +8,39 @@ type TProps = {
 };
 
 export function ReplyMessage({ message }: TProps) {
-  const { author, text } = message;
-
   return (
-    <Grid
-      container
-      alignItems="center"
-      justifyContent="space-between"
-      wrap="nowrap"
+    <Box
+      sx={{
+        display: 'grid',
+        gridAutoFlow: 'column',
+        gridAutoColumns: 'max-content',
+        mb: 1,
+        gap: '8px',
+        alignItems: 'center',
+      }}
     >
+      <ReplyIcon fontSize="small" color="primary" />
+      <Divider variant="middle" orientation="vertical" />
       <Box
         sx={{
-          display: 'inline-grid',
-          gridAutoFlow: 'column',
-          py: 1,
-          gap: '8px',
-          alignItems: 'center',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}
       >
-        <ReplyIcon color="primary" />
-        <Divider variant="middle" orientation="vertical" />
-        <Box
-          sx={{
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
+        <Typography color="primary" fontSize="12px" variant="body2">
+          {message.author.displayName ||
+            message.author.user.displayName ||
+            message.author.user.username}
+        </Typography>
+        <Typography
+          color="text.secondary"
+          fontSize="12px"
+          variant="caption"
+          noWrap
         >
-          <Typography variant="subtitle1">
-            {author.displayName || author.username}
-          </Typography>
-          <Typography color="text.secondary" variant="subtitle2" noWrap>
-            {text}
-          </Typography>
-        </Box>
+          {message.text}
+        </Typography>
       </Box>
-      <IconButton onClick={uiChatService.resetStore}>
-        <Close />
-      </IconButton>
-    </Grid>
+    </Box>
   );
 }

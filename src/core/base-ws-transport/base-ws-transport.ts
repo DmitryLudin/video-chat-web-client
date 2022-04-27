@@ -1,3 +1,4 @@
+import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { Socket, io } from 'socket.io-client';
 
 const { REACT_APP_API_WS_URL } = process.env;
@@ -38,5 +39,18 @@ export class WsTransport {
     this.socket.on(event, (data: T) => {
       callback(data);
     });
+  }
+
+  protected deserialize<T>(model: ClassConstructor<T>): (data: T) => T {
+    return (data: T): T => plainToInstance(model, data);
+  }
+
+  protected deserializeArray<T>(
+    model: ClassConstructor<T>
+  ): (data: Array<unknown>) => Array<T> {
+    return (data: Array<unknown>): Array<T> =>
+      Array.isArray(data)
+        ? data.map((item) => plainToInstance(model, item))
+        : [];
   }
 }

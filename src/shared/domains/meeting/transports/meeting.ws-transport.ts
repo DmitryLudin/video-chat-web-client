@@ -1,6 +1,11 @@
 import { WsTransport } from 'core/base-ws-transport';
 import { IAddMessageDto } from 'shared/domains/meeting/dto';
-import { IMeeting, IMessage } from 'shared/domains/meeting/models';
+import {
+  IMeeting,
+  IMessage,
+  Meeting,
+  Message,
+} from 'shared/domains/meeting/models';
 
 export enum VideoChatAction {
   JOIN_MEETING = 'join_meeting',
@@ -16,7 +21,12 @@ export class MeetingWsTransport extends WsTransport {
   ) {
     return this.listen<{ meeting: IMeeting; messages: IMessage[] }>(
       VideoChatAction.JOIN_MEETING,
-      callback
+      (data) => {
+        callback({
+          meeting: this.deserialize(Meeting)(data.meeting),
+          messages: this.deserializeArray(Message)(data.messages),
+        });
+      }
     );
   }
 
@@ -30,10 +40,15 @@ export class MeetingWsTransport extends WsTransport {
   listenLeaveMeeting(callback: (data: { meeting: IMeeting }) => void) {
     return this.listen<{ meeting: IMeeting }>(
       VideoChatAction.LEAVE_MEETING,
-      callback
+      (data) => {
+        callback({
+          meeting: this.deserialize(Meeting)(data.meeting),
+        });
+      }
     );
   }
 
+  // Сообщения
   sendMessage(addMessageData: IAddMessageDto) {
     return this.send(VideoChatAction.SEND_MESSAGE, addMessageData);
   }
@@ -41,7 +56,11 @@ export class MeetingWsTransport extends WsTransport {
   listenMessages(callback: (data: { messages: IMessage[] }) => void) {
     return this.listen<{ messages: IMessage[] }>(
       VideoChatAction.MESSAGES,
-      callback
+      (data) => {
+        callback({
+          messages: this.deserializeArray(Message)(data.messages),
+        });
+      }
     );
   }
 }

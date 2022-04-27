@@ -1,7 +1,6 @@
 import { Type } from 'class-transformer';
 import {
   IsBoolean,
-  IsNumber,
   IsOptional,
   IsString,
   ValidateNested,
@@ -11,7 +10,7 @@ import { IUser, User } from 'shared/domains/user/user.model';
 import 'reflect-metadata';
 
 export interface IMember {
-  id: number;
+  id: string;
   meeting: IMeeting;
   user: IUser;
   displayName?: string;
@@ -21,8 +20,8 @@ export interface IMember {
 }
 
 export class Member implements IMember {
-  @IsNumber()
-  id!: number;
+  @IsString()
+  id!: string;
 
   @ValidateNested()
   @Type(() => Meeting)

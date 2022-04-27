@@ -1,5 +1,5 @@
 import MicIcon from '@mui/icons-material/Mic';
-import { FooterActionControl } from 'modules/meeting/components/footer/action-control';
+import { FooterActionControl } from 'modules/meeting/components/footer/components';
 import React from 'react';
 
 export function FooterMicrophoneControl() {
