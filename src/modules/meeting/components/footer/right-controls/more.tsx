@@ -7,13 +7,12 @@ import { FooterActionControl } from 'modules/meeting/components/footer/component
 import { uiSidebarService } from 'modules/meeting/services/ui-sidebar.service';
 import React, { useCallback } from 'react';
 import { meetingService } from 'shared/domains/meeting/meeting.service';
-import { IMeeting } from 'shared/domains/meeting/models';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
 function FooterMoreControlObserver() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const meeting = meetingService.store.meeting as IMeeting;
+  const members = meetingService.store.members;
   const messages = meetingService.store.messages;
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
@@ -52,7 +51,7 @@ function FooterMoreControlObserver() {
           <ListItemIcon>
             <PeopleIcon fontSize="small" />
           </ListItemIcon>
-          Участники ({meeting.members.length || 0})
+          Участники ({members.length || 0})
         </MenuItem>
 
         <MenuItem onClick={handleClose}>

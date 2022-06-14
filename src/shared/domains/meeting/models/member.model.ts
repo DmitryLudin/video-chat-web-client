@@ -11,7 +11,7 @@ import 'reflect-metadata';
 
 export interface IMember {
   id: string;
-  meeting: IMeeting;
+  room: IMeeting;
   user: IUser;
   displayName?: string;
   isAudioOn: boolean;
@@ -25,7 +25,7 @@ export class Member implements IMember {
 
   @ValidateNested()
   @Type(() => Meeting)
-  meeting!: Meeting;
+  room!: Meeting;
 
   @IsString()
   @IsOptional()

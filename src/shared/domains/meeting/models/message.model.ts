@@ -5,13 +5,13 @@ import { Member } from 'shared/domains/meeting/models/member.model';
 export interface IMessage {
   id: string;
   text: string;
-  meetingId: string;
+  roomId: string;
   author: Member;
   reply: Message;
   createdAt: string;
 }
 
-export class Message {
+export class Message implements IMessage {
   @IsString()
   id!: string;
 
@@ -19,7 +19,7 @@ export class Message {
   text!: string;
 
   @IsString()
-  meetingId!: string;
+  roomId!: string;
 
   @ValidateNested()
   @Type(() => Member)

@@ -9,7 +9,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
 function FooterMembersControlObserver() {
   const { isMembersListOpen } = uiSidebarService.store;
-  const { meeting } = meetingService.store;
+  const { members } = meetingService.store;
 
   return (
     <FooterActionControl
@@ -17,7 +17,7 @@ function FooterMembersControlObserver() {
       icon={
         <Badge
           invisible={isMembersListOpen}
-          badgeContent={meeting?.members.length || 0}
+          badgeContent={members.length}
           color="secondary"
         >
           {isMembersListOpen ? (

@@ -45,7 +45,7 @@ export abstract class BaseTransport {
       withCredentials: true,
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
       ...config,
-      url: `${baseUrl}/${config.url}`,
+      url: `${baseUrl}/api/${config.url}`,
     })
       .then((response: AxiosResponse) => response)
       .catch((error: AxiosError<TRequestError>) => {

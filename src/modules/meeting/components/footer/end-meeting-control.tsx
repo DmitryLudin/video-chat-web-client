@@ -45,6 +45,7 @@ function EndMeetingControlObserver() {
       <Modal
         title="Завершить встречу?"
         isOpen={isOpen}
+        onClose={handleClose}
         buttons={
           <Button
             color="primary"

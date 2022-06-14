@@ -21,7 +21,7 @@ export function MembersObserver() {
   const { id } = useParams() as { id: string };
   const theme = useTheme();
   const isTableOrMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { meeting } = meetingService.store;
+  const { members } = meetingService.store;
 
   return (
     <Box
@@ -42,7 +42,7 @@ export function MembersObserver() {
         subheader={
           <ListSubheader>
             <Grid container justifyContent="space-between" alignItems="center">
-              Участники ({meeting?.members.length || 0})
+              Участники ({members.length || 0})
               <Button
                 onClick={() => {
                   void navigator.clipboard.writeText(id);
@@ -56,7 +56,7 @@ export function MembersObserver() {
           </ListSubheader>
         }
       >
-        {meeting?.members.map((member) => (
+        {members.map((member) => (
           <ListItem
             key={member.id}
             secondaryAction={

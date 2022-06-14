@@ -10,6 +10,8 @@ function MembersDrawerMobileObserver() {
   const { isMembersListOpen } = uiSidebarService.store;
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <SwipeableDrawer
       sx={{
         [`& .MuiDrawer-paper`]: {

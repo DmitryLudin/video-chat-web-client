@@ -8,5 +8,6 @@ export function withObserverMemo<T extends object>(
   if (isMemo) {
     return React.memo(component);
   }
+
   return observer(component);
 }

@@ -1,6 +1,5 @@
 import ReplyIcon from '@mui/icons-material/Reply';
 import {
-  Avatar,
   Grid,
   IconButton,
   ListItem,
@@ -8,6 +7,7 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import { UserAvatar } from 'components/user-avatar';
 import dayjs from 'dayjs';
 import { MessageText } from 'modules/meeting/components/sidebar/chat/message/text';
 import { uiChatService } from 'modules/meeting/services/ui-chat.service';
@@ -51,7 +51,12 @@ function MessageObserver({ message, isHideDetails = false }: TProps) {
       sx={{ pb: 0, pt: !isHideDetails ? 2 : 0 }}
     >
       <ListItemAvatar>
-        {!isHideDetails && <Avatar alt={author.user.username} />}
+        {!isHideDetails && (
+          <UserAvatar
+            name={author.user.username}
+            displayName={author.displayName || author.user.displayName || ''}
+          />
+        )}
       </ListItemAvatar>
       <ListItemText
         primary={

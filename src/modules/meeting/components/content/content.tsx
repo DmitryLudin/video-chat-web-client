@@ -1,10 +1,9 @@
-import { Box, Stack, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { MeetingMainSpeaker } from 'modules/meeting/components/content/main-speaker';
-import { MeetingSmallSpeaker } from 'modules/meeting/components/content/small-speaker';
+import { SmallSpeakersList } from 'modules/meeting/components/content/small-speakers/small-speakers-list';
 import React from 'react';
-import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
-export function MeetingContentObserver() {
+export function MeetingContent() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -22,22 +21,7 @@ export function MeetingContentObserver() {
       }}
     >
       <MeetingMainSpeaker />
-
-      <Box sx={{ width: '100%', overflow: 'hidden' }}>
-        <Box sx={{ overflow: 'auto' }}>
-          <Stack spacing={2} direction="row">
-            <MeetingSmallSpeaker />
-            <MeetingSmallSpeaker />
-            <MeetingSmallSpeaker />
-            <MeetingSmallSpeaker />
-            <MeetingSmallSpeaker />
-            <MeetingSmallSpeaker />
-            <MeetingSmallSpeaker />
-          </Stack>
-        </Box>
-      </Box>
+      <SmallSpeakersList />
     </Box>
   );
 }
-
-export const MeetingContent = withObserverMemo(MeetingContentObserver);

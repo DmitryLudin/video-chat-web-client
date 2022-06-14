@@ -24,7 +24,7 @@ function NotJoinedModalObserver() {
   const handleSubmit = useCallback(
     ({ meetingId, displayName }: TJoinMeetingFormData) => {
       void meetingService
-        .joinMeeting(meetingId, { userId: user.id, displayName })
+        .join(meetingId, { userId: user.id, displayName })
         .then((meeting) => {
           if (meeting) {
             meetingService.connect();

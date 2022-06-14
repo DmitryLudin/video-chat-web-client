@@ -10,6 +10,8 @@ function ChatDrawerMobileObserver() {
   const { isChatOpen } = uiSidebarService.store;
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <SwipeableDrawer
       onClose={uiSidebarService.onToggleChat}
       onOpen={() => {

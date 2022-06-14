@@ -14,6 +14,7 @@ function ChatFooterObserver() {
   const [value, setValue] = React.useState('');
   const user = userService.store.user as IUser;
   const meeting = meetingService.store.meeting as IMeeting;
+  const members = meetingService.store.members;
   const replayMessage = uiChatService.store.replyMessage;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,19 +24,19 @@ function ChatFooterObserver() {
   const handleSend: React.MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.preventDefault();
-      const member = meeting.members.find(
+      const member = members.find(
         (member) => member.user.id === user.id
       ) as IMember;
       meetingService.sendMessage({
         text: value,
-        meetingId: meeting.id,
+        roomId: meeting.id,
         memberId: member.id,
         replyMessageId: replayMessage?.id,
       });
       uiChatService.resetStore();
       setValue('');
     },
-    [meeting.id, meeting.members, replayMessage?.id, user.id, value]
+    [meeting.id, members, replayMessage?.id, user.id, value]
   );
 
   return (
