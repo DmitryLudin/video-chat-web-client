@@ -28,7 +28,7 @@ export function Logo() {
           }}
           color="primary"
         >
-          встречи
+          конференции
         </Typography>
       </Typography>
     </Link>

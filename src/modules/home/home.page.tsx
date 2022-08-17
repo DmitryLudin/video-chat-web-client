@@ -1,6 +1,6 @@
 import { Container, Grid } from '@mui/material';
-import { HomeCreateMeetingCard } from 'modules/home/create-meeting-card';
-import { JoinToMeetingCard } from 'modules/home/join-to-meeting-card';
+import { CreateConferenceCard } from 'modules/home/create-conference-card';
+import { JoinToConferenceCard } from 'modules/home/join-to-conference-card';
 import React from 'react';
 
 export function HomePage() {
@@ -8,10 +8,10 @@ export function HomePage() {
     <Container maxWidth="sm">
       <Grid container spacing={4} justifyContent="center">
         <Grid item>
-          <HomeCreateMeetingCard />
+          <CreateConferenceCard />
         </Grid>
         <Grid item>
-          <JoinToMeetingCard />
+          <JoinToConferenceCard />
         </Grid>
       </Grid>
     </Container>

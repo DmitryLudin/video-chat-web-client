@@ -15,6 +15,10 @@ export class Store<T extends object> {
     return this.state;
   }
 
+  getStoreValue<K extends keyof T>(key: K): T[K] {
+    return this.state[key];
+  }
+
   @action
   setStore(state: T) {
     this.state = state;
@@ -23,10 +27,6 @@ export class Store<T extends object> {
   @action
   updateStore(state: Partial<T>) {
     this.state = { ...this.state, ...state };
-  }
-
-  getStoreValue<K extends keyof T>(key: K): T[K] {
-    return this.state[key];
   }
 
   @action

@@ -9,13 +9,13 @@ export {};
 //   RtpParameters,
 // } from 'mediasoup-client/lib/RtpParameters';
 // import { DtlsParameters, Transport } from 'mediasoup-client/lib/Transport';
-// import { IMeeting, IMember } from 'shared/domains/meeting/models';
+// import { IMeeting, IMember } from 'shared/domains/conference/models';
 // import {
-//   meetingTransport,
-//   MeetingTransport,
-//   meetingWsTransport,
-//   MeetingWsTransport,
-// } from 'shared/domains/meeting/transports';
+//   conferenceTransport,
+//   ConferenceTransport,
+//   conferenceWsTransport,
+//   ConferenceWsTransport,
+// } from 'shared/domains/conference/transports';
 // import { userService, UserService } from 'shared/domains/user/user.service';
 // import { MediaType } from 'shared/domains/webrtc/constants';
 //
@@ -39,8 +39,8 @@ export {};
 //   }
 //
 //   constructor(
-//     private readonly transport: MeetingTransport,
-//     private readonly wsTransport: MeetingWsTransport,
+//     private readonly transport: ConferenceTransport,
+//     private readonly wsTransport: ConferenceWsTransport,
 //     private readonly userService: UserService
 //   ) {}
 //
@@ -298,7 +298,7 @@ export {};
 // }
 //
 // export const webRtcService = new WebRtcService(
-//   meetingTransport,
-//   meetingWsTransport,
+//   conferenceTransport,
+//   conferenceWsTransport,
 //   userService
 // );
