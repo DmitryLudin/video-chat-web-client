@@ -1,9 +1,6 @@
-import { Layout } from 'components/layout';
 import { PrivateRoute } from 'components/private-route';
-import { HomePage } from 'modules/home/home.page';
-import { LoginPage } from 'modules/log-in/log-in.page';
-import { ConferencePage } from 'modules/conference/conference.page';
-import { RegistrationPage } from 'modules/registration/registration.page';
+import { Layout } from 'modules/layout';
+import { HomePage, LoginPage, ConferencePage, RegistrationPage } from 'pages';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoutes } from 'shared/constants/routes';
