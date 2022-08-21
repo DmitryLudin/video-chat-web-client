@@ -15,13 +15,14 @@ import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
 function ConferencePageObserver() {
   const { id } = useParams() as { id: string };
-  const { room, isConferenceOver, isLoading, error } = conferenceService.store;
+  const { room, isLoading, isRoomClosed, error } = conferenceService.roomStore;
   const user = userService.store.user as IUser;
 
   useEffect(() => {
-    void conferenceService.getByUserId(id, user.id).then((room) => {
+    void conferenceService.getRoomByUserId(id, user.id).then((room) => {
       if (room) {
         conferenceService.connect();
+        conferenceService.geRoomMessages({ roomId: room.id });
       }
     });
   }, [id, user.id]);
@@ -29,7 +30,7 @@ function ConferencePageObserver() {
   useEffect(() => {
     return () => {
       conferenceService.disconnect();
-      conferenceService.resetStore();
+      conferenceService.reset();
     };
   }, []);
 
@@ -41,7 +42,7 @@ function ConferencePageObserver() {
         </Grid>
       )}
 
-      {!room && error?.code === ServerErrorCode.MEETING_NOT_FOUND && (
+      {!room && error?.code === ServerErrorCode.ROOM_NOT_FOUND && (
         <Grid sx={{ p: 3 }} container justifyContent="center">
           <Typography variant="h5" color="error">
             Видимо такой конференции нет
@@ -49,7 +50,7 @@ function ConferencePageObserver() {
         </Grid>
       )}
 
-      {!isLoading && !isConferenceOver && room && (
+      {!isLoading && !isRoomClosed && room && (
         <>
           <ConferenceContentWrap>
             <ConferenceContent />

@@ -12,7 +12,7 @@ import { useModal } from 'shared/hooks/use-modal.hook';
 function NotJoinedModalObserver() {
   const navigate = useNavigate();
   const [isOpen, handleOpen, handleClose] = useModal();
-  const { isLoading, error } = conferenceService.store;
+  const { isLoading, error } = conferenceService.roomStore;
   const user = userService.store.user as IUser;
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function NotJoinedModalObserver() {
   const handleSubmit = useCallback(
     ({ roomId, displayName }: TJoinConferenceFormData) => {
       void conferenceService
-        .join(roomId, { userId: user.id, displayName })
+        .joinRoom(roomId, { userId: user.id, displayName })
         .then((room) => {
           if (room) {
             conferenceService.connect();

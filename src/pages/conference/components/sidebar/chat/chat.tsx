@@ -14,7 +14,7 @@ import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 function ChatObserver() {
   const theme = useTheme();
   const isTableOrMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const messages = conferenceService.store.messages;
+  const messages = conferenceService.chatStore.messages;
 
   return (
     <Box
@@ -40,7 +40,9 @@ function ChatObserver() {
               <Message
                 key={message.id}
                 message={message}
-                isHideDetails={prevMessage?.author?.id === message.author.id}
+                isHideDetails={Boolean(
+                  prevMessage && prevMessage?.author?.id === message.author.id
+                )}
               />
             );
           })}

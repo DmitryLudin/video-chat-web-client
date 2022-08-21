@@ -4,8 +4,8 @@ import { footerHeight } from 'pages/conference/components/footer/footer';
 import { ReplyFooterMessage } from 'pages/conference/components/sidebar/chat/reply-footer-message';
 import { uiChatService } from 'pages/conference/services/ui-chat.service';
 import React, { useCallback } from 'react';
-import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IRoom, IMember } from 'shared/domains/conference/models';
+import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IUser } from 'shared/domains/user/user.model';
 import { userService } from 'shared/domains/user/user.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
@@ -13,8 +13,8 @@ import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 function ChatFooterObserver() {
   const [value, setValue] = React.useState('');
   const user = userService.store.user as IUser;
-  const room = conferenceService.store.room as IRoom;
-  const members = conferenceService.store.members;
+  const room = conferenceService.roomStore.room as IRoom;
+  const members = conferenceService.roomStore.members;
   const replayMessage = uiChatService.store.replyMessage;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

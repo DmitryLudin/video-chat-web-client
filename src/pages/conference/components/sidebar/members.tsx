@@ -21,7 +21,7 @@ export function MembersObserver() {
   const { id } = useParams() as { id: string };
   const theme = useTheme();
   const isTableOrMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { members } = conferenceService.store;
+  const members = conferenceService.roomStore.members;
 
   return (
     <Box

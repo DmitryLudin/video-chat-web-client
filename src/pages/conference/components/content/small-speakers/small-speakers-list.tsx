@@ -5,7 +5,7 @@ import { conferenceService } from 'shared/domains/conference/conference.service'
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
 function SmallSpeakersListObserver() {
-  const members = conferenceService.store.members;
+  const members = conferenceService.roomStore.members;
   const membersWithoutFirst = useMemo(() => members.slice(1), [members]);
 
   return (

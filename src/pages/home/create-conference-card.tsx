@@ -15,7 +15,7 @@ function CreateConferenceCardObserver() {
     useCallback(
       (e) => {
         e.preventDefault();
-        void conferenceService.create({ ownerId: user.id }).then((room) => {
+        void conferenceService.createRoom({ ownerId: user.id }).then((room) => {
           if (room) {
             navigate(`conference/${room.id}`);
           }

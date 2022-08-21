@@ -2,8 +2,8 @@ import { Button, DialogContentText } from '@mui/material';
 import { Modal } from 'components/modal';
 import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IRoom } from 'shared/domains/conference/models';
+import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IUser } from 'shared/domains/user/user.model';
 import { userService } from 'shared/domains/user/user.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
@@ -13,7 +13,7 @@ function EndConferenceControlObserver() {
   const navigate = useNavigate();
   const [isOpen, handleOpen, handleClose] = useModal();
   const user = userService.store.user as IUser;
-  const room = conferenceService.store.room as IRoom;
+  const room = conferenceService.roomStore.room as IRoom;
 
   const isUserOwner = user.id === room.owner.id;
 

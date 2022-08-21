@@ -9,7 +9,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
 function FooterMembersControlObserver() {
   const { isMembersListOpen } = uiSidebarService.store;
-  const { members } = conferenceService.store;
+  const members = conferenceService.roomStore.members;
 
   return (
     <FooterActionControl

@@ -12,8 +12,8 @@ import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 function FooterMoreControlObserver() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const members = conferenceService.store.members;
-  const messages = conferenceService.store.messages;
+  const members = conferenceService.roomStore.members;
+  const messages = conferenceService.chatStore.messages;
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

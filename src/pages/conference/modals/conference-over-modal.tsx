@@ -9,13 +9,13 @@ import { useModal } from 'shared/hooks/use-modal.hook';
 function ConferenceOverModalObserver() {
   const navigate = useNavigate();
   const [isOpen, handleOpen, handleClose] = useModal();
-  const { isConferenceOver } = conferenceService.store;
+  const { isRoomClosed } = conferenceService.roomStore;
 
   useEffect(() => {
-    if (isConferenceOver) {
+    if (isRoomClosed) {
       handleOpen();
     }
-  }, [handleOpen, isConferenceOver]);
+  }, [handleOpen, isRoomClosed]);
 
   const handleCloseModal = useCallback(() => {
     navigate('/');

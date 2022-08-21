@@ -13,15 +13,15 @@ import React, { useCallback } from 'react';
 function JoinToConferenceCardObserver() {
   const navigate = useNavigate();
   const user = userService.store.user as IUser;
-  const isLoading = conferenceService.store.isLoading;
+  const isLoading = conferenceService.roomStore.isLoading;
   const [isOpen, handleOpen, handleClose] = useModal();
 
   const handleSubmit = useCallback(
     ({ roomId, displayName }: TJoinConferenceFormData) => {
       void conferenceService
-        .join(roomId, { userId: user.id, displayName })
-        .then((meeting) => {
-          if (meeting) {
+        .joinRoom(roomId, { userId: user.id, displayName })
+        .then((room) => {
+          if (room) {
             navigate(`conference/${roomId}`);
             handleClose();
           }

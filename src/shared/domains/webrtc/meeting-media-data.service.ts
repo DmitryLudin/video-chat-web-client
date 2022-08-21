@@ -12,7 +12,7 @@ export {};
 // import { IMeeting, IMember } from 'shared/domains/conference/models';
 // import {
 //   conferenceTransport,
-//   ConferenceTransport,
+//   RoomTransport,
 //   conferenceWsTransport,
 //   ConferenceWsTransport,
 // } from 'shared/domains/conference/transports';
@@ -45,7 +45,7 @@ export {};
 //   }
 //
 //   constructor(
-//     private readonly transport: ConferenceTransport,
+//     private readonly transport: RoomTransport,
 //     private readonly wsTransport: ConferenceWsTransport,
 //     private readonly userService: UserService
 //   ) {}

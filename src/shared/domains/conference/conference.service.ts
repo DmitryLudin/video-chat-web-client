@@ -1,123 +1,72 @@
-import { RequestStore } from 'core';
 import {
-  IAddMessageDto,
-  ICreateConferenceDto,
-  IJoinConferenceDto,
-} from 'shared/domains/conference/dto';
-import { IRoom, IMember, IMessage } from 'shared/domains/conference/models';
+  chatService,
+  ChatService,
+  RoomService,
+  roomService,
+} from 'shared/domains/conference/domains';
 import {
-  ConferenceTransport,
-  conferenceTransport,
-  conferenceWsTransport,
-  ConferenceWsTransport,
-} from 'shared/domains/conference/transports';
-
-type TConferenceStore = {
-  messages: IMessage[];
-  room: IRoom | null;
-  members: IMember[];
-  isConferenceOver: boolean;
-};
-
-const initialConferenceState: TConferenceStore = {
-  messages: [],
-  members: [],
-  room: null,
-  isConferenceOver: false,
-};
+  IGetMessagesDto,
+  ISendMessageDto,
+} from 'shared/domains/conference/types/chat-dto.types';
+import {
+  ICreateRoomDto,
+  IJoinRoomDto,
+} from 'shared/domains/conference/types/room-dto.types';
 
 class ConferenceService {
-  private readonly _store = new RequestStore<TConferenceStore>(
-    initialConferenceState
-  );
+  get roomStore() {
+    return this.roomService.store;
+  }
 
-  get store() {
-    return this._store.getStore();
+  get chatStore() {
+    return this.chatService.store;
   }
 
   constructor(
-    private readonly transport: ConferenceTransport,
-    private readonly wsTransport: ConferenceWsTransport
+    private readonly roomService: RoomService,
+    private readonly chatService: ChatService // private readonly mediaDataService: MediaDataService
   ) {}
 
-  async getByUserId(roomId: string, userId: number) {
-    this._store.setLoading(true);
-
-    return this.transport
-      .getByUserId(roomId, userId)
-      .then((room) => {
-        this._store.updateStore({ room: room, members: room.members });
-
-        return room;
-      })
-      .catch(this._store.setError)
-      .finally(() => this._store.setLoading(false));
+  /* Комната Конференции */
+  getRoomByUserId(roomId: string, userId: number) {
+    return this.roomService.getByUserId(roomId, userId);
   }
 
-  create(roomData: ICreateConferenceDto) {
-    this._store.setLoading(true);
-
-    return this.transport
-      .create(roomData)
-      .then((room) => {
-        this._store.updateStore({ room: room, members: room.members });
-
-        return room;
-      })
-      .catch(this._store.setError)
-      .finally(() => this._store.setLoading(false));
+  createRoom(data: ICreateRoomDto) {
+    return this.roomService.create(data);
   }
 
-  join(roomId: string, joinRoomData: IJoinConferenceDto) {
-    this._store.setLoading(true);
-
-    return this.transport
-      .joinRoom(roomId, joinRoomData)
-      .then((room) => {
-        this._store.updateStore({ room: room, members: room.members });
-
-        return room;
-      })
-      .catch(this._store.setError)
-      .finally(() => this._store.setLoading(false));
+  joinRoom(roomId: string, data: IJoinRoomDto) {
+    return this.roomService.join(roomId, data);
   }
 
+  /* Чат */
+  geRoomMessages(data: IGetMessagesDto) {
+    return this.chatService.getMessages(data);
+  }
+
+  sendMessage(data: ISendMessageDto) {
+    return this.chatService.sendMessage(data);
+  }
+
+  /* WebSocket */
   connect() {
-    this.wsTransport.connect();
-    this.wsTransport.listenJoinRoom(({ room, mediaData }) => {
-      this._store.updateStore({
-        room: room,
-        members: room.members,
-      });
-    });
-    this.wsTransport.listenLeaveRoom(({ room }) =>
-      this._store.updateStore({ room: room, members: room.members })
-    );
-    this.wsTransport.listenEndRoom(({ isConferenceOver }) =>
-      this._store.updateStore({ isConferenceOver: isConferenceOver })
-    );
-    this.wsTransport.listenMessages(({ messages }) => {
-      this._store.updateStore({ messages });
-    });
-    this.wsTransport.listenMembers(({ members }) =>
-      this._store.updateStore({ members })
-    );
-  }
-
-  sendMessage(messageData: IAddMessageDto) {
-    this.wsTransport.sendMessage(messageData);
+    this.roomService.connect();
+    this.chatService.connect();
   }
 
   disconnect() {
-    this.wsTransport.disconnect();
+    this.roomService.disconnect();
+    this.chatService.disconnect();
   }
 
-  resetStore() {
-    this._store.resetStore();
+  reset() {
+    this.roomService.reset();
+    this.chatService.reset();
   }
 }
 
 export const conferenceService = new ConferenceService(
-  conferenceTransport,
-  conferenceWsTransport
+  roomService,
+  chatService
 );

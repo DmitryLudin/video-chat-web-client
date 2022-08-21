@@ -9,7 +9,7 @@ import React from 'react';
 
 function FooterChatControlObserver() {
   const { isChatOpen } = uiSidebarService.store;
-  const messages = conferenceService.store.messages;
+  const messages = conferenceService.chatStore.messages;
 
   return (
     <FooterActionControl

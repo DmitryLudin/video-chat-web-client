@@ -1,4 +1,5 @@
 import { ClassConstructor, plainToInstance } from 'class-transformer';
+import { TWsTransportCallback } from 'core/base-ws-transport/types';
 import { Socket, io } from 'socket.io-client';
 
 const { REACT_APP_API_WS_URL } = process.env;
@@ -8,11 +9,16 @@ const baseWsUrl = REACT_APP_API_WS_URL as string;
 export class WsTransport {
   protected socket!: Socket | null;
 
+  constructor(private readonly namespace?: string) {}
+
   connect(callback?: () => void) {
-    this.socket = io(baseWsUrl, {
+    const url = this.namespace ? `${baseWsUrl}/${this.namespace}` : baseWsUrl;
+
+    this.socket = io(url, {
       withCredentials: true,
       transports: ['websocket', 'polling'],
     });
+
     this.socket.on('connect', () => {
       callback && callback();
     });
@@ -31,7 +37,7 @@ export class WsTransport {
     this.socket.emit(event, data);
   }
 
-  listen<T>(event: string, callback: (data: T) => void): void | Error {
+  listen<T>(event: string, callback: TWsTransportCallback<T>): void | Error {
     if (!this.socket) {
       return new Error('Соединение с сервером не установлено');
     }
@@ -41,16 +47,22 @@ export class WsTransport {
     });
   }
 
-  protected deserialize<T>(model: ClassConstructor<T>): (data: T) => T {
-    return (data: T): T => plainToInstance(model, data);
+  protected deserialize<T>(
+    model: ClassConstructor<T>,
+    callback: TWsTransportCallback<T>
+  ) {
+    return (data: T) => callback(plainToInstance(model, data));
   }
 
   protected deserializeArray<T>(
-    model: ClassConstructor<T>
-  ): (data: Array<unknown>) => Array<T> {
-    return (data: Array<unknown>): Array<T> =>
-      Array.isArray(data)
-        ? data.map((item) => plainToInstance(model, item))
-        : [];
+    model: ClassConstructor<T>,
+    callback: TWsTransportCallback<T[]>
+  ) {
+    return (data: Array<T>) =>
+      callback(
+        Array.isArray(data)
+          ? data.map((item) => plainToInstance(model, item))
+          : []
+      );
   }
 }
