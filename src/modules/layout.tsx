@@ -21,7 +21,7 @@ export function Layout() {
       }}
     >
       <Header />
-      <Box sx={{ pt: 6, pb: 4, bgcolor: 'background.default' }}>
+      <Box sx={{ bgcolor: 'background.default' }}>
         {isLoading ? (
           <Grid sx={{ p: 3 }} container justifyContent="center">
             <CircularProgress />

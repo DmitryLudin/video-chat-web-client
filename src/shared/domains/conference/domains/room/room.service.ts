@@ -83,8 +83,8 @@ export class RoomService {
     this.wsTransport.listenJoinRoom((room: IRoom) =>
       this._store.updateStore({ room: room, members: room.members })
     );
-    this.wsTransport.listenLeaveRoom((room: IRoom) =>
-      this._store.updateStore({ room: room, members: room.members })
+    this.wsTransport.listenLeaveRoom((members: IMember[]) =>
+      this._store.updateStore({ members })
     );
     this.wsTransport.listenCloseRoom(({ isRoomClosed }) =>
       this._store.updateStore({ isRoomClosed })

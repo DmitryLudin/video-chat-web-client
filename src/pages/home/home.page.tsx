@@ -5,7 +5,7 @@ import React from 'react';
 
 export function HomePage() {
   return (
-    <Container maxWidth="sm">
+    <Container sx={{ pt: 6, pb: 4 }} maxWidth="sm">
       <Grid container spacing={4} justifyContent="center">
         <Grid item>
           <CreateConferenceCard />

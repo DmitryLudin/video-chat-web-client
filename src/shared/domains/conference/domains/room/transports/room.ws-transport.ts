@@ -5,7 +5,7 @@ import { IMember, IRoom, Member, Room } from 'shared/domains/conference/models';
 
 export class RoomWsTransport extends WsTransport {
   constructor() {
-    super('room');
+    super('rooms');
   }
 
   listenMembers(callback: TWsTransportCallback<IMember[]>) {
@@ -22,10 +22,10 @@ export class RoomWsTransport extends WsTransport {
     );
   }
 
-  listenLeaveRoom(callback: TWsTransportCallback<IRoom>) {
-    return this.listen<IRoom>(
+  listenLeaveRoom(callback: TWsTransportCallback<IMember[]>) {
+    return this.listen(
       RoomEventEnum.LEAVE_ROOM,
-      this.deserialize(Room, callback)
+      this.deserializeArray(Member, callback)
     );
   }
 
