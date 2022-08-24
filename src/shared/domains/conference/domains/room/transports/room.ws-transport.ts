@@ -5,7 +5,7 @@ import { IMember, IRoom, Member, Room } from 'shared/domains/conference/models';
 
 export class RoomWsTransport extends WsTransport {
   constructor() {
-    super('rooms');
+    super('conferences/rooms');
   }
 
   listenMembers(callback: TWsTransportCallback<IMember[]>) {

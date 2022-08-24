@@ -9,7 +9,7 @@ import {
 
 export class ChatWsTransport extends WsTransport {
   constructor() {
-    super('chat');
+    super('conferences/chat');
   }
 
   listenMessages(callback: TWsTransportCallback<IMessage[]>) {

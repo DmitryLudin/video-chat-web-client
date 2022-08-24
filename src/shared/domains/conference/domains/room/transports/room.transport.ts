@@ -7,7 +7,7 @@ import {
 
 export class RoomTransport extends BaseTransport {
   constructor() {
-    super('conferences');
+    super('conferences/rooms');
   }
 
   getByUserId(roomId: string, userId: number) {
