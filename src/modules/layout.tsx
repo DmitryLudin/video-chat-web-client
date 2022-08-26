@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Grid } from '@mui/material';
+import { Box } from '@mui/material';
+import { Loader } from 'components/loader';
 import { Header } from 'modules/header/header';
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
@@ -22,13 +23,7 @@ export function Layout() {
     >
       <Header />
       <Box sx={{ bgcolor: 'background.default' }}>
-        {isLoading ? (
-          <Grid sx={{ p: 3 }} container justifyContent="center">
-            <CircularProgress />
-          </Grid>
-        ) : (
-          <Outlet />
-        )}
+        {isLoading ? <Loader /> : <Outlet />}
       </Box>
     </Box>
   );

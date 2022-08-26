@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
+import { Loader } from 'components/loader';
 import { ServerErrorCode } from 'core/base-transport';
 import { ConferenceContent } from 'pages/conference/components/content/content';
 import { ConferenceFooter } from 'pages/conference/components/footer/footer';
@@ -36,11 +37,7 @@ function ConferencePageObserver() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      {isLoading && (
-        <Grid sx={{ p: 3 }} container justifyContent="center">
-          <CircularProgress />
-        </Grid>
-      )}
+      {isLoading && <Loader />}
 
       {!room && error?.code === ServerErrorCode.ROOM_NOT_FOUND && (
         <Grid sx={{ p: 3 }} container justifyContent="center">

@@ -60,6 +60,7 @@ module.exports = merge(common, {
         vendors: {
           name: 'vendors',
           filename: '[name].[contenthash].js',
+          chunks: 'all',
           test: /[\\/]node_modules[\\/]/
         }
       }

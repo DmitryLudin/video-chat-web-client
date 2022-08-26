@@ -36,7 +36,7 @@ function ChatFooterObserver() {
       uiChatService.resetStore();
       setValue('');
     },
-    [room.id, members, replayMessage?.id, user.id, value]
+    [room?.id, members, replayMessage?.id, user.id, value]
   );
 
   return (
