@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 function stringToColor(string: string) {
   let hash = 0;

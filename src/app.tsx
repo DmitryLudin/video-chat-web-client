@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import { MainRoutes } from 'main-routes';
 import { ColorModeContext } from 'shared/contexts/color-mode.context';
 import { useThemeColorMode } from 'shared/hooks/use-theme-color-mode.hook';
-import React from 'react';
 import updateLocale from 'dayjs/plugin/updateLocale';
 
 dayjs.locale('ru');

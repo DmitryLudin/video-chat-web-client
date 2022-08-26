@@ -1,7 +1,7 @@
 import { useMediaQuery, useTheme } from '@mui/material';
 import { uiSidebarService } from 'pages/conference/services/ui-sidebar.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
-import React, { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { Wrap } from './main-content-wrap.styles';
 
 export const ConferenceContentWrap = withObserverMemo(

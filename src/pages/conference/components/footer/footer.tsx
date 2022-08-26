@@ -2,10 +2,9 @@ import { Grid, Paper, useMediaQuery, useTheme } from '@mui/material';
 import { EndConferenceControl } from 'pages/conference/components/footer/end-conference-control';
 import { FooterLeftControls } from 'pages/conference/components/footer/left-controls';
 import { FooterRightControls } from 'pages/conference/components/footer/right-controls';
-import React from 'react';
-import { ChatDrawerMobile, MembersDrawerMobile } from './drawers';
+import { footerHeight } from 'pages/conference/consts';
 
-export const footerHeight = 92;
+import { ChatDrawerMobile, MembersDrawerMobile } from './drawers';
 
 export function ConferenceFooter() {
   const theme = useTheme();

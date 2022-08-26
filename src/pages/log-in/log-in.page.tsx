@@ -3,7 +3,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { Avatar, Box, Container, Grid, Link, Typography } from '@mui/material';
 import { LogInPasswordField } from 'pages/log-in/password-field';
 import { LogInUsernameField } from 'pages/log-in/username-field';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import {
   Link as RouterLink,

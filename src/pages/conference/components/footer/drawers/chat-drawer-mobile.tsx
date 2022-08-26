@@ -2,7 +2,6 @@ import { SwipeableDrawer, useMediaQuery, useTheme } from '@mui/material';
 import { Chat } from 'pages/conference/components/sidebar/chat/chat';
 import { uiSidebarService } from 'pages/conference/services/ui-sidebar.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
-import React from 'react';
 
 function ChatDrawerMobileObserver() {
   const theme = useTheme();

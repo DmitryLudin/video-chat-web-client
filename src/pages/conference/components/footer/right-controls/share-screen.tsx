@@ -1,6 +1,5 @@
 import ScreenShareIcon from '@mui/icons-material/ScreenShare';
 import { FooterActionControl } from 'pages/conference/components/footer/components';
-import React from 'react';
 
 export function FooterShareScreenControl() {
   return (

@@ -1,7 +1,7 @@
 import { ServerErrorCode } from 'core/base-transport';
 import { JoinConferenceModal } from 'modules/join-conference-modal/join-conference-modal';
 import { TJoinConferenceFormData } from 'modules/join-conference-modal/types';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IUser } from 'shared/domains/user/user.model';

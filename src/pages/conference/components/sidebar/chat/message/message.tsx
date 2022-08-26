@@ -11,7 +11,7 @@ import { UserAvatar } from 'components/user-avatar';
 import dayjs from 'dayjs';
 import { MessageText } from 'pages/conference/components/sidebar/chat/message/text';
 import { uiChatService } from 'pages/conference/services/ui-chat.service';
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { IMessage } from 'shared/domains/conference/models';
 import { IUser } from 'shared/domains/user/user.model';
 import { userService } from 'shared/domains/user/user.service';

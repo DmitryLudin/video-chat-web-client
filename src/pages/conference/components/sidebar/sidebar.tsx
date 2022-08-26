@@ -10,7 +10,6 @@ import { Members } from 'pages/conference/components/sidebar/members';
 import { drawerWidth } from 'pages/conference/consts';
 import { uiSidebarService } from 'pages/conference/services/ui-sidebar.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
-import React from 'react';
 
 function ConferenceSidebarObserver() {
   const theme = useTheme();

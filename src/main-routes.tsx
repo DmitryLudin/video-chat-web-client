@@ -1,7 +1,7 @@
 import { PrivateRoute } from 'components/private-route';
 import { Layout } from 'modules/layout';
 import { HomePage, LoginPage, ConferencePage, RegistrationPage } from 'pages';
-import React from 'react';
+
 import { Route, Routes } from 'react-router-dom';
 import { AppRoutes } from 'shared/constants/routes';
 

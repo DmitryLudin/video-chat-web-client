@@ -1,7 +1,6 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { ConferenceMainSpeaker } from 'pages/conference/components/content/main-speaker';
 import { SmallSpeakersList } from 'pages/conference/components/content/small-speakers/small-speakers-list';
-import React from 'react';
 
 export function ConferenceContent() {
   const theme = useTheme();

@@ -2,7 +2,7 @@ import { Close } from '@mui/icons-material';
 import ReplyIcon from '@mui/icons-material/Reply';
 import { Box, Divider, Grid, IconButton, Typography } from '@mui/material';
 import { uiChatService } from 'pages/conference/services/ui-chat.service';
-import React from 'react';
+
 import { IMessage } from 'shared/domains/conference/models';
 
 type TProps = {

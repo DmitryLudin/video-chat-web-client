@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material';
 import { ConferenceSmallSpeaker } from 'pages/conference/components/content/small-speakers/small-speaker';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 

@@ -8,7 +8,7 @@ import { IUser } from 'shared/domains/user/user.model';
 import { userService } from 'shared/domains/user/user.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 import { useModal } from 'shared/hooks/use-modal.hook';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 
 function JoinToConferenceCardObserver() {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { AppRoutes } from 'shared/constants/routes';
 import { authService } from 'shared/domains/auth/auth.service';

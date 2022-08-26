@@ -4,7 +4,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { RegisterDisplayNameField } from 'pages/registration/display-name-field';
 import { RegisterPasswordField } from 'pages/registration/password-field';
 import { RegisterUsernameField } from 'pages/registration/username-field';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { authService } from 'shared/domains/auth/auth.service';

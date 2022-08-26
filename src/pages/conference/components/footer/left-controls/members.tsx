@@ -4,7 +4,7 @@ import { FooterActionControl } from 'pages/conference/components/footer/componen
 import { uiSidebarService } from 'pages/conference/services/ui-sidebar.service';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
-import React from 'react';
+
 import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
 function FooterMembersControlObserver() {
