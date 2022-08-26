@@ -6,26 +6,9 @@ const baseEnv = require('./base-environment');
 
 const prodEnv = {
   ...baseEnv,
-  ENV: "'prod'",
-  PLATFORM: "'web'",
-  API_HOST: "'https://lampa-kharon.query.consul-prod'",
-  APP_HOST: "'https://lampa-kharon.query.consul-prod'",
-  WS_HOST: "'wss://digital-hr.tochka.com'",
-  OauthConfigs: {
-    requestParams: {
-      host: "'https://auth.tochka-tech.com'",
-      client_id: "'e3e4eb9c'",
-      redirect_uri: "'https://digital-hr.tochka.com/authorization/oauth'"
-    }
-  },
-  matomo: {
-    url: "'//analytics.tochka-tech.com/'",
-    siteId: 12,
-    customDimensions: {
-      details: 1,
-      sessionId: 2
-    }
-  }
+  APP_HOST: "'http://localhost:3000'",
+  API_HOST: "'http://localhost:8000'",
+  WS_HOST: "'http://localhost:8000'",
 };
 
 module.exports = prodEnv;

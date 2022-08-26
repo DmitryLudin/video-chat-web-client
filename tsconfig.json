@@ -9,6 +9,7 @@
     "rootDir": "src",
     "skipLibCheck": true,
     "esModuleInterop": true,
+    "downlevelIteration": true,
     "importHelpers": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,

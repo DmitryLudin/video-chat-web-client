@@ -11,19 +11,6 @@ const paths = require("./paths");
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-        },
-        include: paths.src,
-        exclude: /node_modules/,
-      }
-    ]
-  },
   plugins: [
     new CircularDependencyPlugin({
       // exclude detection of files based on a RegExp

@@ -36,6 +36,15 @@ module.exports = {
           configFile: path.join(paths.root, '/babel.config.json'),
         }
       },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+        include: paths.src,
+        exclude: /node_modules/,
+      },
       // Images: Copy image files to build folder
       { test: /\.(png|jpe?g|gif|webp|ico)$/i, type: 'asset' },
       // Fonts: Inline files
