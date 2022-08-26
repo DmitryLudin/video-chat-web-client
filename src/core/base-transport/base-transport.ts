@@ -8,9 +8,7 @@ import {
 } from 'core/base-transport/types';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const { REACT_APP_API_URL } = process.env;
-
-const baseUrl = REACT_APP_API_URL as string;
+const baseUrl = API_HOST;
 
 export abstract class BaseTransport {
   protected readonly basePath: string;

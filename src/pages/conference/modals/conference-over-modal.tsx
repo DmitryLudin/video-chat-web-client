@@ -1,6 +1,6 @@
 import { Button, DialogContentText } from '@mui/material';
 import { Modal } from 'components/modal';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';

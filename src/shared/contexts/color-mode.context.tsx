@@ -1,11 +1,9 @@
 import { PaletteMode } from '@mui/material';
-import React from 'react';
+import { createContext } from 'react';
 
 export type TColorModeContext = {
   mode: PaletteMode;
   toggleColorMode: VoidFunction;
 };
 
-export const ColorModeContext = React.createContext<TColorModeContext | null>(
-  null
-);
+export const ColorModeContext = createContext<TColorModeContext | null>(null);

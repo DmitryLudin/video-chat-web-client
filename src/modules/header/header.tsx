@@ -2,7 +2,6 @@ import { AppBar, Box, Toolbar } from '@mui/material';
 import { ThemeSwitch } from 'modules/header/theme-switch';
 import { UserAccount } from 'modules/header/user-account';
 import { Logo } from 'components/logo';
-import React from 'react';
 
 export function Header() {
   return (

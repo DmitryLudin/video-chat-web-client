@@ -3,7 +3,7 @@ import {
   ColorModeContext,
   TColorModeContext,
 } from 'shared/contexts/color-mode.context';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 export function ThemeSwitch() {
   const { mode, toggleColorMode } = useContext(

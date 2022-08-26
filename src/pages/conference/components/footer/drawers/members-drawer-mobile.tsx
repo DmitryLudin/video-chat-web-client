@@ -1,7 +1,7 @@
 import { SwipeableDrawer, useMediaQuery, useTheme } from '@mui/material';
 import { uiSidebarService } from 'pages/conference/services/ui-sidebar.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
-import React from 'react';
+
 import { Members } from '../../sidebar/members';
 
 function MembersDrawerMobileObserver() {

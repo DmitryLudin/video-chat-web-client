@@ -1,16 +1,17 @@
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from 'shared/domains/auth/auth.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
-import React from 'react';
+
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { userService } from 'shared/domains/user/user.service';
 
 function UserAccountObserver() {
   const { user } = userService.store;
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleLogout = () => {
     void authService.logOut().then(() => navigate('/log-in'));

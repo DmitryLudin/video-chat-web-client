@@ -1,6 +1,6 @@
 import VideoCameraFrontRoundedIcon from '@mui/icons-material/VideoCameraFrontRounded';
 import { HomePageCard } from 'pages/home/components/card';
-import React, { MouseEventHandler, useCallback } from 'react';
+import { MouseEventHandler, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IUser } from 'shared/domains/user/user.model';

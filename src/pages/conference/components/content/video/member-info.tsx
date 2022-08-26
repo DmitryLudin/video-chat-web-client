@@ -1,6 +1,6 @@
 import MicIcon from '@mui/icons-material/Mic';
 import { Box, Paper, Typography } from '@mui/material';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { IMember } from 'shared/domains/conference/models';
 
 type TProps = {

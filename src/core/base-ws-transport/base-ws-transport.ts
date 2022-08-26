@@ -2,9 +2,7 @@ import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { TWsTransportCallback } from 'core/base-ws-transport/types';
 import { Socket, io } from 'socket.io-client';
 
-const { REACT_APP_API_WS_URL } = process.env;
-
-const baseWsUrl = REACT_APP_API_WS_URL as string;
+const baseWsUrl = WS_HOST;
 
 export class WsTransport {
   protected socket!: Socket | null;

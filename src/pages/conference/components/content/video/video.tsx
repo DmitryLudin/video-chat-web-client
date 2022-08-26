@@ -1,6 +1,6 @@
 import { Paper } from '@mui/material';
 import { MemberInfo } from 'pages/conference/components/content/video/member-info';
-import React from 'react';
+
 import { IMember } from 'shared/domains/conference/models';
 
 type TProps = {

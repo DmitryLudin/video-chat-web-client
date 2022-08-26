@@ -1,6 +1,5 @@
 import VideocamIcon from '@mui/icons-material/Videocam';
 import { FooterActionControl } from 'pages/conference/components/footer/components';
-import React from 'react';
 
 export function FooterVideoControl() {
   return (

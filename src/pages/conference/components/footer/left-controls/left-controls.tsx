@@ -2,7 +2,6 @@ import { Box, Grid, useMediaQuery, useTheme } from '@mui/material';
 import { FooterMembersControl } from 'pages/conference/components/footer/left-controls/members';
 import { FooterMicrophoneControl } from 'pages/conference/components/footer/left-controls/microphone';
 import { FooterVideoControl } from 'pages/conference/components/footer/left-controls/video';
-import React from 'react';
 
 export function FooterLeftControls() {
   const theme = useTheme();

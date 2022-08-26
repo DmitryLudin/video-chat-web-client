@@ -1,7 +1,7 @@
 import { Box, Fab, Grid, Paper, Stack, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { footerHeight } from 'pages/conference/components/footer/footer';
 import { ReplyFooterMessage } from 'pages/conference/components/sidebar/chat/reply-footer-message';
+import { footerHeight } from 'pages/conference/consts';
 import { uiChatService } from 'pages/conference/services/ui-chat.service';
 import React, { useCallback } from 'react';
 import { IRoom, IMember } from 'shared/domains/conference/models';

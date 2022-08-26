@@ -6,7 +6,7 @@ import { ConferenceContentWrap } from 'pages/conference/components/main-content-
 import { ConferenceSidebar } from 'pages/conference/components/sidebar/sidebar';
 import { NotJoinedModal } from 'pages/conference/modals';
 import { ConferenceOverModal } from 'pages/conference/modals/conference-over-modal';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IUser } from 'shared/domains/user/user.model';

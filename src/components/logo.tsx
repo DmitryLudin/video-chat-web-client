@@ -1,7 +1,6 @@
 import { Videocam } from '@mui/icons-material';
 import { Typography, Link } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import React from 'react';
 
 export function Logo() {
   return (

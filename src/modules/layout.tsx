@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { Header } from 'modules/header/header';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { authService } from 'shared/domains/auth/auth.service';
 

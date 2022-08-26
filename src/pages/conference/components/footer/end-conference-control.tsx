@@ -1,6 +1,6 @@
 import { Button, DialogContentText } from '@mui/material';
 import { Modal } from 'components/modal';
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IRoom } from 'shared/domains/conference/models';
 import { conferenceService } from 'shared/domains/conference/conference.service';

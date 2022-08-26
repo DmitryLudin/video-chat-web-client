@@ -1,6 +1,6 @@
 import ReplyIcon from '@mui/icons-material/Reply';
 import { Box, Divider, Typography } from '@mui/material';
-import React from 'react';
+
 import { IMessage } from 'shared/domains/conference/models';
 
 type TProps = {

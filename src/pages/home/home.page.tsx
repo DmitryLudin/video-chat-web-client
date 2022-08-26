@@ -1,7 +1,6 @@
 import { Container, Grid } from '@mui/material';
 import { CreateConferenceCard } from 'pages/home/create-conference-card';
 import { JoinToConferenceCard } from 'pages/home/join-to-conference-card';
-import React from 'react';
 
 export function HomePage() {
   return (

@@ -1,6 +1,6 @@
 import { Paper } from '@mui/material';
 import { ReplyMessage } from 'pages/conference/components/sidebar/chat/message/reply-message';
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { IMessage } from 'shared/domains/conference/models';
 
 type TProps = {
