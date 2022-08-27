@@ -62,6 +62,7 @@ module.exports = merge(common, {
           filename: '[name].[contenthash].js',
           chunks: 'all',
           test: /[\\/]node_modules[\\/]/
+          // test: /[\\/]node_modules[\\/](react|react-dom|axios|reflect-metadata|validator)[\\/]/,
         }
       }
     }

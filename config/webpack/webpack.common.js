@@ -14,7 +14,9 @@ module.exports = {
   // Where webpack outputs the assets and bundles
   output: {
     path: paths.build,
-    filename: '[name].[contenthash].js',
+    filename: '[name].[contenthash].bundle.js',
+    asyncChunks: true,
+    publicPath: '/',
     assetModuleFilename: 'assets/[hash][ext][query]',
     clean: true
   },
@@ -64,7 +66,7 @@ module.exports = {
       patterns: [
         {
           from: `${paths.public}/assets`,
-          to: paths.build
+          to: 'assets'
         },
       ],
     }),
@@ -78,6 +80,7 @@ module.exports = {
     new webpack.DefinePlugin({ ...environment }),
   ],
   optimization: {
-    runtimeChunk: true,
+    moduleIds: 'deterministic',
+    runtimeChunk: 'single',
   },
 }

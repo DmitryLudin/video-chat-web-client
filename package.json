@@ -5,7 +5,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config config/webpack/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack/webpack.prod.js",
-    "analyze": "cross-env NODE_ENV=production webpack --profile --json --config config/webpack/webpack.prod.js > stats.json",
+    "analyze": "cross-env NODE_ENV=production webpack --config config/webpack/webpack.analyze.js",
     "ts-check-hook": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "prepare": "husky install",
@@ -68,6 +68,7 @@
     "@commitlint/cli": "^17.0.3",
     "@loadable/babel-plugin": "^5.13.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@statoscope/webpack-plugin": "^5.24.0",
     "@types/jest": "^28.1.8",
     "@types/loadable__component": "^5.13.4",
     "@types/node": "^18.7.13",
