@@ -1,8 +1,7 @@
 import { Box, useMediaQuery, useTheme } from '@mui/material';
-import { ConferenceMainSpeaker } from 'pages/conference/components/content/main-speaker';
-import { SmallSpeakersList } from 'pages/conference/components/content/small-speakers/small-speakers-list';
+import { Members } from 'pages/conference/components/media-content/members/members';
 
-export function ConferenceContent() {
+export function ConferenceMediaContent() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -19,8 +18,8 @@ export function ConferenceContent() {
         gridGap: (theme) => theme.spacing(2),
       }}
     >
-      <ConferenceMainSpeaker />
-      <SmallSpeakersList />
+      {/*<ActiveMember />*/}
+      <Members />
     </Box>
   );
 }

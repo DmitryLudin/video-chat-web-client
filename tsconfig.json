@@ -16,7 +16,7 @@
     "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "allowUnusedLabels": false,
     "module": "esnext",
     "moduleResolution": "node",

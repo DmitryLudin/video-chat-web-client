@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { ChatFooter } from 'pages/conference/components/sidebar/chat/footer';
 import { Message } from 'pages/conference/components/sidebar/chat/message/message';
+import { useEffect } from 'react';
 
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';

@@ -14,7 +14,7 @@ module.exports = {
   // Where webpack outputs the assets and bundles
   output: {
     path: paths.build,
-    filename: '[name].[contenthash].bundle.js',
+    filename: '[name].[contenthash:8].bundle.js',
     asyncChunks: true,
     publicPath: '/',
     assetModuleFilename: 'assets/[hash][ext][query]',

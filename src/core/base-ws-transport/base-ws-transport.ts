@@ -27,7 +27,7 @@ export class WsTransport {
     this.socket = null;
   }
 
-  send<T>(event: string, data: T): void | Error {
+  send<T>(event: string, data?: T): void | Error {
     if (!this.socket) {
       return new Error('Соединение с сервером не установлено');
     }

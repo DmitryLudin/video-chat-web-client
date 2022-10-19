@@ -1,7 +1,7 @@
 import { WsTransport } from 'core/base-ws-transport';
 import { TWsTransportCallback } from 'core/base-ws-transport/types';
 import { RoomEventEnum } from 'shared/domains/conference/constants';
-import { IMember, IRoom, Member, Room } from 'shared/domains/conference/models';
+import { IMember, Member } from 'shared/domains/conference/models';
 
 export class RoomWsTransport extends WsTransport {
   constructor() {
@@ -11,20 +11,6 @@ export class RoomWsTransport extends WsTransport {
   listenMembers(callback: TWsTransportCallback<IMember[]>) {
     return this.listen<IMember[]>(
       RoomEventEnum.MEMBERS,
-      this.deserializeArray(Member, callback)
-    );
-  }
-
-  listenJoinRoom(callback: TWsTransportCallback<IRoom>) {
-    return this.listen<IRoom>(
-      RoomEventEnum.JOIN_ROOM,
-      this.deserialize(Room, callback)
-    );
-  }
-
-  listenLeaveRoom(callback: TWsTransportCallback<IMember[]>) {
-    return this.listen(
-      RoomEventEnum.LEAVE_ROOM,
       this.deserializeArray(Member, callback)
     );
   }

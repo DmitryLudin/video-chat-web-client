@@ -1,17 +1,17 @@
 import {
   chatService,
   ChatService,
+  mediaDataService,
+  MediaDataService,
   RoomService,
   roomService,
 } from 'shared/domains/conference/domains';
-import {
-  IGetMessagesDto,
-  ISendMessageDto,
-} from 'shared/domains/conference/types/chat-dto.types';
+import { ISendMessageDto } from 'shared/domains/conference/types/chat-dto.types';
 import {
   ICreateRoomDto,
   IJoinRoomDto,
 } from 'shared/domains/conference/types/room-dto.types';
+import { isRoomGuard } from 'shared/domains/conference/utils/guards.util';
 
 class ConferenceService {
   get roomStore() {
@@ -22,9 +22,22 @@ class ConferenceService {
     return this.chatService.store;
   }
 
+  get mediaDataStore() {
+    return this.mediaDataService.store;
+  }
+
+  get isInitialized() {
+    return (
+      !this.roomStore.isLoading &&
+      !this.mediaDataStore.store.isLoading &&
+      this.mediaDataStore.store.isInitialized
+    );
+  }
+
   constructor(
     private readonly roomService: RoomService,
-    private readonly chatService: ChatService // private readonly mediaDataService: MediaDataService
+    private readonly chatService: ChatService,
+    private readonly mediaDataService: MediaDataService
   ) {}
 
   /* Комната Конференции */
@@ -32,19 +45,33 @@ class ConferenceService {
     return this.roomService.getByUserId(roomId, userId);
   }
 
-  createRoom(data: ICreateRoomDto) {
-    return this.roomService.create(data);
+  async createRoom(data: ICreateRoomDto) {
+    const room = await this.roomService.create(data);
+    const selfMember = this.roomService.selfMember;
+
+    if (isRoomGuard(room) && selfMember) {
+      await this.mediaDataService.createMediaData(room.id, {
+        memberId: selfMember.id,
+      });
+    }
+
+    return room;
   }
 
-  joinRoom(roomId: string, data: IJoinRoomDto) {
-    return this.roomService.join(roomId, data);
+  async joinRoom(roomId: string, data: IJoinRoomDto) {
+    const room = await this.roomService.join(roomId, data);
+    const selfMember = this.roomService.selfMember;
+
+    if (isRoomGuard(room) && selfMember) {
+      await this.mediaDataService.addMediaStream(room.id, {
+        memberId: selfMember.id,
+      });
+    }
+
+    return room;
   }
 
   /* Чат */
-  geRoomMessages(data: IGetMessagesDto) {
-    return this.chatService.getMessages(data);
-  }
-
   sendMessage(data: ISendMessageDto) {
     return this.chatService.sendMessage(data);
   }
@@ -53,11 +80,13 @@ class ConferenceService {
   connect() {
     this.roomService.connect();
     this.chatService.connect();
+    this.mediaDataService.connect();
   }
 
   disconnect() {
     this.roomService.disconnect();
     this.chatService.disconnect();
+    this.mediaDataService.disconnect();
   }
 
   reset() {
@@ -68,5 +97,6 @@ class ConferenceService {
 
 export const conferenceService = new ConferenceService(
   roomService,
-  chatService
+  chatService,
+  mediaDataService
 );

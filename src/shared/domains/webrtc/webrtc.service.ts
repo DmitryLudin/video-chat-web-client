@@ -73,13 +73,13 @@ export {};
 //       case MediaType.AUDIO:
 //         mediaConstraints = {
 //           audio: true,
-//           video: false,
+//           media: false,
 //         };
 //         break;
 //       case MediaType.VIDEO:
 //         mediaConstraints = {
 //           audio: false,
-//           video: {
+//           media: {
 //             width: {
 //               min: 640,
 //               ideal: 1920,
@@ -95,8 +95,8 @@ export {};
 //         return;
 //     }
 //
-//     if (!this.device.canProduce('video') && !isAudio) {
-//       console.error('Cannot produce video');
+//     if (!this.device.canProduce('media') && !isAudio) {
+//       console.error('Cannot produce media');
 //       return;
 //     }
 //

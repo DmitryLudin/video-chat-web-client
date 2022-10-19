@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import { Loader } from 'components/loader';
 import { ServerErrorCode } from 'core/base-transport';
-import { ConferenceContent } from 'pages/conference/components/content/content';
+import { ConferenceMediaContent } from 'pages/conference/components/media-content/content';
 import { ConferenceFooter } from 'pages/conference/components/footer/footer';
 import { ConferenceContentWrap } from 'pages/conference/components/main-content-wrap';
 import { ConferenceSidebar } from 'pages/conference/components/sidebar/sidebar';
@@ -16,14 +16,14 @@ import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
 function ConferencePageObserver() {
   const { id } = useParams() as { id: string };
-  const { room, isLoading, isRoomClosed, error } = conferenceService.roomStore;
+  const { room, isRoomClosed, error } = conferenceService.roomStore;
+  const isInitialized = conferenceService.isInitialized;
   const user = userService.store.user as IUser;
 
   useEffect(() => {
     void conferenceService.getRoomByUserId(id, user.id).then((room) => {
       if (room) {
         conferenceService.connect();
-        conferenceService.geRoomMessages({ roomId: room.id });
       }
     });
   }, [id, user.id]);
@@ -37,7 +37,7 @@ function ConferencePageObserver() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      {isLoading && <Loader />}
+      {!isInitialized && <Loader />}
 
       {!room && error?.code === ServerErrorCode.ROOM_NOT_FOUND && (
         <Grid sx={{ p: 3 }} container justifyContent="center">
@@ -47,10 +47,10 @@ function ConferencePageObserver() {
         </Grid>
       )}
 
-      {!isLoading && !isRoomClosed && room && (
+      {isInitialized && !isRoomClosed && room && (
         <>
           <ConferenceContentWrap>
-            <ConferenceContent />
+            <ConferenceMediaContent />
             <ConferenceFooter />
           </ConferenceContentWrap>
           <ConferenceSidebar />

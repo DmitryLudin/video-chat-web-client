@@ -6,7 +6,6 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { IUser, User } from 'shared/domains/user/user.model';
-import 'reflect-metadata';
 
 export interface IMember {
   id: string;

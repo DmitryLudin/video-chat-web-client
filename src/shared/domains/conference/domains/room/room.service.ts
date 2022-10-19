@@ -10,6 +10,7 @@ import {
   ICreateRoomDto,
   IJoinRoomDto,
 } from 'shared/domains/conference/types/room-dto.types';
+import { userService, UserService } from 'shared/domains/user/user.service';
 
 type TStore = {
   room: IRoom | null;
@@ -30,9 +31,17 @@ export class RoomService {
     return this._store.getStore();
   }
 
+  get selfMember() {
+    const members = this._store.getStore().members;
+    const user = this.userService.store.user;
+
+    return members.find((member) => member.user.id === user?.id);
+  }
+
   constructor(
     private readonly transport: RoomTransport,
-    private readonly wsTransport: RoomWsTransport
+    private readonly wsTransport: RoomWsTransport,
+    private readonly userService: UserService
   ) {}
 
   getByUserId(roomId: string, userId: number) {
@@ -80,12 +89,6 @@ export class RoomService {
   /* WebSocket */
   connect() {
     this.wsTransport.connect();
-    this.wsTransport.listenJoinRoom((room: IRoom) =>
-      this._store.updateStore({ room: room, members: room.members })
-    );
-    this.wsTransport.listenLeaveRoom((members: IMember[]) =>
-      this._store.updateStore({ members })
-    );
     this.wsTransport.listenCloseRoom(({ isRoomClosed }) =>
       this._store.updateStore({ isRoomClosed })
     );
@@ -103,4 +106,8 @@ export class RoomService {
   }
 }
 
-export const roomService = new RoomService(roomTransport, roomWsTransport);
+export const roomService = new RoomService(
+  roomTransport,
+  roomWsTransport,
+  userService
+);

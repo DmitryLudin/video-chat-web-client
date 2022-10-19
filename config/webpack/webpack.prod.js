@@ -24,42 +24,13 @@ module.exports = merge(common, {
   ],
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin({
-      terserOptions: {
-        parse: {
-          ecma: 10,
-        },
-        compress: {
-          ecma: 5,
-          warnings: false,
-          comparisons: false,
-          booleans: true,
-          collapse_vars: false,
-          if_return: true,
-          sequences: true,
-          unused: true,
-          conditionals: true,
-          dead_code: true,
-          evaluate: true
-        },
-        mangle: {
-          safari10: true,
-        },
-        output: {
-          beautify: false,
-          ecma: 5,
-          comments: false,
-          ascii_only: true,
-        },
-      },
-      parallel: true,
-    })],
+    minimizer: [new TerserPlugin()],
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
         vendors: {
           name: 'vendors',
-          filename: '[name].[contenthash].js',
+          filename: '[name].[contenthash:8].js',
           chunks: 'all',
           test: /[\\/]node_modules[\\/]/
           // test: /[\\/]node_modules[\\/](react|react-dom|axios|reflect-metadata|validator)[\\/]/,

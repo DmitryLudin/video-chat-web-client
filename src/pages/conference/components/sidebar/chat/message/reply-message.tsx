@@ -13,7 +13,7 @@ export function ReplyMessage({ message }: TProps) {
       sx={{
         display: 'grid',
         gridAutoFlow: 'column',
-        gridAutoColumns: 'max-content',
+        gridAutoColumns: 'max-media-content',
         mb: 1,
         gap: '8px',
         alignItems: 'center',

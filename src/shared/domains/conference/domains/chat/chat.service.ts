@@ -4,10 +4,7 @@ import {
   ChatWsTransport,
 } from 'shared/domains/conference/domains/chat/chat.ws-transport';
 import { IMessage } from 'shared/domains/conference/models';
-import {
-  IGetMessagesDto,
-  ISendMessageDto,
-} from 'shared/domains/conference/types/chat-dto.types';
+import { ISendMessageDto } from 'shared/domains/conference/types/chat-dto.types';
 
 type TStore = {
   messages: IMessage[];
@@ -40,10 +37,6 @@ export class ChatService {
 
   sendMessage(data: ISendMessageDto) {
     this.wsTransport.sendMessage(data);
-  }
-
-  getMessages(data: IGetMessagesDto) {
-    this.wsTransport.getMessages(data);
   }
 
   disconnect() {
