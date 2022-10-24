@@ -1,5 +1,4 @@
 import { Device } from 'mediasoup-client';
-import { Producer, ProducerOptions } from 'mediasoup-client/lib/Producer';
 import {
   MediaKind,
   RtpCapabilities,
@@ -9,41 +8,33 @@ import {
   DtlsParameters,
   IceCandidate,
   IceParameters,
+  Transport,
 } from 'mediasoup-client/lib/Transport';
+import { MediaStreamService } from 'shared/domains/conference/domains/media-data/services/media-stream.service';
+import {
+  MediaDataTransport,
+  MediaDataWsTransport,
+} from 'shared/domains/conference/domains/media-data/transports';
 import { IMember, IRoom } from 'shared/domains/conference/models';
 
 export type TMemberId = IMember['id'];
 export type TRoomId = IRoom['id'];
-export type TProducerId = Producer['id'];
 
-interface IWebrtcTransportParams {
+export interface IWebrtcTransportParams {
   id: string;
   iceParameters: IceParameters;
   iceCandidates: IceCandidate[];
   dtlsParameters: DtlsParameters;
 }
 
-export type TMemberData = { memberId: string; roomId: string };
-
-export interface IMediaData {
-  routerRtpCapabilities: RtpCapabilities;
-  transports: Array<IWebrtcTransportParams>;
-}
-
 export interface IRoomMediaDataDto {
   roomId: TRoomId;
   memberId: TMemberId;
-  mediaData: IMediaData;
+  mediaData: {
+    routerRtpCapabilities: RtpCapabilities;
+    transports: Array<IWebrtcTransportParams>;
+  };
 }
-
-export interface INewMediaStreams {
-  tracks: Array<TCreateConsumer>;
-}
-
-export type TTransportDto = TMemberData & {
-  device: Device;
-  transportParams: IWebrtcTransportParams;
-};
 
 export type TMediaStreamTransportConnect = { dtlsParameters: DtlsParameters };
 
@@ -52,12 +43,26 @@ export type TMediaStreamProduce = {
   rtpParameters: RtpParameters;
 };
 
-export type TCreateProducer = {
-  track: Omit<MediaStreamTrack, 'kind'> & { kind: MediaKind | string };
+export type TMediaStreamConstructor = {
+  meta: TMeta;
+  webRtcTransport: Transport;
+  httpTransport: MediaDataTransport;
+  wsTransport: MediaDataWsTransport;
+  device: Device;
 };
 
-export type TCreateConsumer = {
-  producerId: TProducerId;
-  memberId: TMemberId;
-  mediaKind: MediaKind;
+export type TMeta = {
+  roomId: TRoomId;
+  selfMemberId: TMemberId;
 };
+
+export type TRemoteMemberMediaData = {
+  memberId: string;
+  streams: Array<{ producerId: string; mediaKind: MediaKind }>;
+};
+
+export interface IMediaStreamService extends MediaStreamService {
+  init(data?: unknown): Promise<void>;
+  streamPause(mediaKind: MediaKind): void;
+  streamResume(mediaKind: MediaKind): void;
+}

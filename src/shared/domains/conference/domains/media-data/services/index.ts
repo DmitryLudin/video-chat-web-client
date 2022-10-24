@@ -1,2 +1,2 @@
-export * from './producers.service';
-export * from './consumers.service';
+export * from './remote-media-stream.service';
+export * from './local-media-stream.service';

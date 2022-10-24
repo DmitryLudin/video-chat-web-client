@@ -23,21 +23,17 @@ export interface ICreateMediaStreamProducerDto {
   paused: false;
 }
 
-export interface IMediaStreamProducerTrack {
-  track: {
-    producerId: string;
-  };
+export interface IMediaStreamProducer {
+  producerId: string;
 }
 
-export interface IMediaStreamConsumerTrack {
-  track: {
-    id: string;
-    kind: MediaKind;
-    rtpParameters: RtpParameters;
-    type: string;
-    producerId: string;
-    producerPaused: boolean;
-  };
+export interface IMediaStreamConsumer {
+  id: string;
+  kind: MediaKind;
+  rtpParameters: RtpParameters;
+  type: string;
+  producerId: string;
+  producerPaused: boolean;
 }
 
 export interface ICreateMediaStreamConsumerDto {
@@ -51,4 +47,18 @@ export interface ICreateMediaStreamConsumerDto {
 export interface IResumeMediaStreamConsumerDto {
   memberId: string;
   consumerId: string;
+}
+
+export interface IPauseResumeMediaStreamDto {
+  roomId: string;
+  memberId: string;
+  producerId: string;
+  kind: MediaKind;
+}
+
+export interface IRemoteMediaData {
+  membersMediaData: Array<{
+    memberId: string;
+    streams: Array<{ producerId: string; mediaKind: MediaKind }>;
+  }>;
 }

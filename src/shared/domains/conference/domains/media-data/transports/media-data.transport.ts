@@ -5,8 +5,8 @@ import {
   ICreateMediaDataDto,
   ICreateMediaStreamConsumerDto,
   ICreateMediaStreamProducerDto,
-  IMediaStreamConsumerTrack,
-  IMediaStreamProducerTrack,
+  IMediaStreamConsumer,
+  IMediaStreamProducer,
   IResumeMediaStreamConsumerDto,
 } from 'shared/domains/conference/types/media-data-dto.types';
 
@@ -34,9 +34,7 @@ export class MediaDataTransport extends BaseTransport {
     return this.post(
       `${this.basePath}/${roomId}/create-stream-producer`,
       data
-    ).then(
-      (response: AxiosResponse<IMediaStreamProducerTrack>) => response.data
-    );
+    ).then((response: AxiosResponse<IMediaStreamProducer>) => response.data);
   }
 
   createMediaStreamConsumer(
@@ -46,9 +44,7 @@ export class MediaDataTransport extends BaseTransport {
     return this.post(
       `${this.basePath}/${roomId}/create-stream-consumer`,
       data
-    ).then(
-      (response: AxiosResponse<IMediaStreamConsumerTrack>) => response.data
-    );
+    ).then((response: AxiosResponse<IMediaStreamConsumer>) => response.data);
   }
 
   resumeMediaStreamConsumer(

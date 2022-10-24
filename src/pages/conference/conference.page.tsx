@@ -16,8 +16,7 @@ import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
 function ConferencePageObserver() {
   const { id } = useParams() as { id: string };
-  const { room, isRoomClosed, error } = conferenceService.roomStore;
-  const isInitialized = conferenceService.isInitialized;
+  const { room, isRoomClosed, isLoading, error } = conferenceService.roomStore;
   const user = userService.store.user as IUser;
 
   useEffect(() => {
@@ -37,7 +36,7 @@ function ConferencePageObserver() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      {!isInitialized && <Loader />}
+      {isLoading && <Loader />}
 
       {!room && error?.code === ServerErrorCode.ROOM_NOT_FOUND && (
         <Grid sx={{ p: 3 }} container justifyContent="center">
@@ -47,7 +46,7 @@ function ConferencePageObserver() {
         </Grid>
       )}
 
-      {isInitialized && !isRoomClosed && room && (
+      {!isLoading && !isRoomClosed && room && (
         <>
           <ConferenceContentWrap>
             <ConferenceMediaContent />

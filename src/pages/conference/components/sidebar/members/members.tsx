@@ -3,15 +3,11 @@ import {
   Button,
   Grid,
   List,
-  ListItem,
-  ListItemText,
   ListSubheader,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-
-import MicIcon from '@mui/icons-material/Mic';
-import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import { Member } from 'pages/conference/components/sidebar/members/member';
 import { useParams } from 'react-router-dom';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
@@ -57,27 +53,7 @@ export function MembersObserver() {
         }
       >
         {members.map((member) => (
-          <ListItem
-            key={member.id}
-            secondaryAction={
-              <Grid container spacing={2}>
-                <Grid item>
-                  <MicIcon />
-                </Grid>
-                <Grid item>
-                  <VideocamOutlinedIcon />
-                </Grid>
-              </Grid>
-            }
-          >
-            <ListItemText
-              primary={
-                member.displayName ||
-                member.user.displayName ||
-                member.user.username
-              }
-            />
-          </ListItem>
+          <Member key={member.id} member={member} />
         ))}
       </List>
     </Box>

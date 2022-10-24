@@ -38,4 +38,5 @@ export const videoCodecOptions = {
 
 export const audioMediaConstraints = {
   video: false,
+  audio: true,
 };

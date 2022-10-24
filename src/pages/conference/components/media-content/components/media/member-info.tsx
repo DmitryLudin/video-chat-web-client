@@ -1,13 +1,15 @@
 import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
 import { Box, Paper, Typography } from '@mui/material';
 import { useMemo } from 'react';
 import { IMember } from 'shared/domains/conference/models';
 
 type TProps = {
   member: IMember;
+  isAudioPaused?: boolean;
 };
 
-export function MemberInfo({ member }: TProps) {
+export function MemberInfo({ member, isAudioPaused }: TProps) {
   const displayName = useMemo(
     () => member.displayName || member.user.displayName || member.user.username,
     [member.displayName, member.user.displayName, member.user.username]
@@ -56,7 +58,11 @@ export function MemberInfo({ member }: TProps) {
           bgcolor: 'rgba(117, 88, 224, 0.85)',
         }}
       >
-        <MicIcon sx={{ color: '#fff' }} />
+        {isAudioPaused ? (
+          <MicOffIcon sx={{ color: '#fff' }} />
+        ) : (
+          <MicIcon sx={{ color: '#fff' }} />
+        )}
       </Paper>
     </Box>
   );

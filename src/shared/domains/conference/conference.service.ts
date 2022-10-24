@@ -26,12 +26,8 @@ class ConferenceService {
     return this.mediaDataService.store;
   }
 
-  get isInitialized() {
-    return (
-      !this.roomStore.isLoading &&
-      !this.mediaDataStore.store.isLoading &&
-      this.mediaDataStore.store.isInitialized
-    );
+  get localStreamService() {
+    return this.mediaDataService.getLocalStreamService();
   }
 
   constructor(
@@ -92,6 +88,7 @@ class ConferenceService {
   reset() {
     this.roomService.reset();
     this.chatService.reset();
+    this.mediaDataService.reset();
   }
 }
 
