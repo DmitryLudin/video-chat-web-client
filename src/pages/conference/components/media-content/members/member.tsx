@@ -19,6 +19,7 @@ function MemberObserver({ member }: TProps) {
   const audioStream = mediaData?.audioStore.localStream;
   const isVideoPaused = mediaData?.videoStore.isPaused;
   const isAudioPaused = mediaData?.audioStore.isPaused;
+  const isSpeaking = mediaData?.audioStore.isSpeaking;
   const isLoading =
     (mediaData?.videoStore?.isLoading || mediaData?.audioStore.isLoading) ??
     true;
@@ -55,6 +56,7 @@ function MemberObserver({ member }: TProps) {
       isLoading={isLoading}
       isVideoPaused={isVideoPaused}
       isAudioPaused={isAudioPaused}
+      isSpeaking={isSpeaking}
       videoRef={onVideoCallback}
       audioRef={onAudioCallback}
     />

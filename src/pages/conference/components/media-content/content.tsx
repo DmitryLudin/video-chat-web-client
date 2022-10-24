@@ -11,11 +11,13 @@ export function ConferenceMediaContent() {
         p: isMobile ? 2 : 4,
         margin: '0 auto',
         width: '100%',
-        maxWidth: '1200px',
         height: `calc(100vh - 92px - ${isMobile ? 56 : 64}px)`,
         display: 'grid',
-        gridTemplateRows: '70% 30%',
         gridGap: (theme) => theme.spacing(2),
+        gridTemplateColumns: 'repeat(auto-fill, 240px)',
+        justifyContent: 'center',
+        overflow: 'auto',
+        gridAutoRows: 'max-content',
       }}
     >
       {/*<ActiveMember />*/}

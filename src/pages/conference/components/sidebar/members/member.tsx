@@ -3,6 +3,7 @@ import MicOffIcon from '@mui/icons-material/MicOff';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import VideocamOffOutlinedIcon from '@mui/icons-material/VideocamOffOutlined';
 import { Grid, ListItem, ListItemText } from '@mui/material';
+import ToggleIcon from 'material-ui-toggle-icon';
 import { conferenceService } from 'shared/domains/conference/conference.service';
 import { IMember } from 'shared/domains/conference/models';
 import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
@@ -20,13 +21,19 @@ function MemberObserver({ member }: TProps) {
     <ListItem
       secondaryAction={
         <Grid container spacing={2}>
-          <Grid item>{isAudioPaused ? <MicOffIcon /> : <MicIcon />}</Grid>
           <Grid item>
-            {isVideoPaused ? (
-              <VideocamOffOutlinedIcon />
-            ) : (
-              <VideocamOutlinedIcon />
-            )}
+            <ToggleIcon
+              on={!isAudioPaused}
+              onIcon={<MicIcon />}
+              offIcon={<MicOffIcon />}
+            />
+          </Grid>
+          <Grid item>
+            <ToggleIcon
+              on={!isVideoPaused}
+              onIcon={<VideocamOutlinedIcon />}
+              offIcon={<VideocamOffOutlinedIcon />}
+            />
           </Grid>
         </Grid>
       }

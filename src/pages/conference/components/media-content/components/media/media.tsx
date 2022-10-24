@@ -12,6 +12,7 @@ type TProps = {
   isVideoPaused?: boolean;
   isAudioPaused?: boolean;
   isLoading?: boolean;
+  isSpeaking?: boolean;
 };
 
 export function Media({
@@ -19,6 +20,7 @@ export function Media({
   isLoading,
   isVideoPaused,
   isAudioPaused,
+  isSpeaking,
   videoRef,
   audioRef,
 }: TProps) {
@@ -31,6 +33,10 @@ export function Media({
         paddingTop: '75%',
         borderRadius: 3,
         overflow: 'hidden',
+        transition:
+          'box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, outline 50ms linear',
+        outline: (theme) =>
+          isSpeaking ? `3px solid ${theme.palette.success.light}` : 'none',
       }}
     >
       {isLoading ? (
@@ -73,6 +79,7 @@ export function Media({
               top: 0,
               left: 0,
               objectFit: 'cover',
+              borderRadius: '12px',
               objectPosition: 'center',
               transform: 'rotateY(180deg)',
             }}

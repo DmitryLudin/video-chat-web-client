@@ -1,6 +1,7 @@
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import { Box, Paper, Typography } from '@mui/material';
+import ToggleIcon from 'material-ui-toggle-icon';
 import { useMemo } from 'react';
 import { IMember } from 'shared/domains/conference/models';
 
@@ -58,11 +59,11 @@ export function MemberInfo({ member, isAudioPaused }: TProps) {
           bgcolor: 'rgba(117, 88, 224, 0.85)',
         }}
       >
-        {isAudioPaused ? (
-          <MicOffIcon sx={{ color: '#fff' }} />
-        ) : (
-          <MicIcon sx={{ color: '#fff' }} />
-        )}
+        <ToggleIcon
+          on={!isAudioPaused}
+          onIcon={<MicIcon sx={{ color: '#fff' }} />}
+          offIcon={<MicOffIcon sx={{ color: '#fff' }} />}
+        />
       </Paper>
     </Box>
   );

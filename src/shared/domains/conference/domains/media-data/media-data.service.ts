@@ -155,19 +155,23 @@ export class MediaDataService {
     const device = this.device;
     const webRtcTransport = this.webRtcTransports.receive;
 
-    membersMediaData.forEach((mediaData) => {
-      if (mediaData.memberId === this.meta.selfMemberId) return;
-
-      const remoteStreamService = new RemoteMediaStreamService({
-        meta: this.meta,
-        device,
-        webRtcTransport,
-        wsTransport: this.wsTransport,
-        httpTransport: this.transport,
+    membersMediaData
+      .filter(
+        (mediaData) =>
+          mediaData.memberId !== this.meta.selfMemberId ||
+          !this._store.getStoreValue(mediaData.memberId)
+      )
+      .forEach((mediaData) => {
+        const remoteStreamService = new RemoteMediaStreamService({
+          meta: this.meta,
+          device,
+          webRtcTransport,
+          wsTransport: this.wsTransport,
+          httpTransport: this.transport,
+        });
+        void remoteStreamService.init(mediaData.streams);
+        this._store.updateStore({ [mediaData.memberId]: remoteStreamService });
       });
-      void remoteStreamService.init(mediaData.streams);
-      this._store.updateStore({ [mediaData.memberId]: remoteStreamService });
-    });
   }
 
   /*

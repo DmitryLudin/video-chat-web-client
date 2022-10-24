@@ -58,7 +58,11 @@ export type TMeta = {
 
 export type TRemoteMemberMediaData = {
   memberId: string;
-  streams: Array<{ producerId: string; mediaKind: MediaKind }>;
+  streams: Array<{
+    producerId: string;
+    mediaKind: MediaKind;
+    isPaused: boolean;
+  }>;
 };
 
 export interface IMediaStreamService extends MediaStreamService {

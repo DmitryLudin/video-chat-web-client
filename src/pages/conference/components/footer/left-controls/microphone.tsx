@@ -1,5 +1,6 @@
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
+import ToggleIcon from 'material-ui-toggle-icon';
 import { FooterActionControl } from 'pages/conference/components/footer/components';
 import { useCallback } from 'react';
 import { conferenceService } from 'shared/domains/conference/conference.service';
@@ -21,11 +22,11 @@ function FooterMicrophoneControlObserver() {
     <FooterActionControl
       color={isPaused ? 'primary' : 'secondary'}
       icon={
-        isPaused ? (
-          <MicIcon sx={{ fontSize: '30px' }} />
-        ) : (
-          <MicOffIcon sx={{ fontSize: '30px' }} />
-        )
+        <ToggleIcon
+          on={!isPaused}
+          onIcon={<MicIcon sx={{ fontSize: '30px' }} />}
+          offIcon={<MicOffIcon sx={{ fontSize: '30px' }} />}
+        />
       }
       onClick={onToggleAudio}
     />

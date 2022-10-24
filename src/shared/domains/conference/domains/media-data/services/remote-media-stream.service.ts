@@ -1,3 +1,4 @@
+import hark from 'hark';
 import { MediaKind } from 'mediasoup-client/lib/RtpParameters';
 import { MediaStreamService } from 'shared/domains/conference/domains/media-data/services/media-stream.service';
 import {
@@ -13,7 +14,13 @@ export class RemoteMediaStreamService
     super(options);
   }
 
-  async init(streams: Array<{ producerId: string; mediaKind: MediaKind }>) {
+  async init(
+    streams: Array<{
+      producerId: string;
+      mediaKind: MediaKind;
+      isPaused: boolean;
+    }>
+  ) {
     await Promise.all([this.consume(streams[0]), this.consume(streams[1])]);
   }
 
@@ -30,9 +37,11 @@ export class RemoteMediaStreamService
   private async consume({
     producerId,
     mediaKind,
+    isPaused,
   }: {
     producerId: string;
     mediaKind: MediaKind;
+    isPaused: boolean;
   }) {
     const store = mediaKind === 'video' ? this._videoStore : this._audioStore;
 
@@ -54,12 +63,32 @@ export class RemoteMediaStreamService
 
       const localStream = this.createLocalStream(consumer.track);
 
-      await this.httpTransport.resumeMediaStreamConsumer(this.meta.roomId, {
-        memberId: this.meta.selfMemberId,
-        consumerId: consumer.id,
+      store.updateStore({
+        localStream,
+        remoteStream: consumer,
+        isPaused,
       });
 
-      store.updateStore({ localStream, remoteStream: consumer });
+      if (isPaused) {
+        this.streamPause(mediaKind);
+      } else {
+        await this.httpTransport.resumeMediaStreamConsumer(this.meta.roomId, {
+          memberId: this.meta.selfMemberId,
+          consumerId: consumer.id,
+        });
+      }
+
+      if (mediaKind === 'audio') {
+        const speechEvents = hark(localStream);
+
+        speechEvents.on('speaking', () => {
+          this._audioStore.updateStore({ isSpeaking: true });
+        });
+
+        speechEvents.on('stopped_speaking', () => {
+          this._audioStore.updateStore({ isSpeaking: false });
+        });
+      }
 
       consumer.on('trackended', () => {
         console.log('track ended');

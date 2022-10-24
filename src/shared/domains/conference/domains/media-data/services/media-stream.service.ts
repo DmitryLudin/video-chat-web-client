@@ -25,6 +25,7 @@ type TAudioStore = {
   remoteStream?: Producer | Consumer;
   isLoading: boolean;
   isPaused: boolean;
+  isSpeaking: boolean;
 };
 
 export abstract class MediaStreamService {
@@ -42,6 +43,7 @@ export abstract class MediaStreamService {
   protected readonly _audioStore = new RequestStore<TAudioStore>({
     isLoading: false,
     isPaused: false,
+    isSpeaking: false,
   });
 
   get videoStore() {

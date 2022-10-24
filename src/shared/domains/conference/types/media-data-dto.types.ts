@@ -41,7 +41,7 @@ export interface ICreateMediaStreamConsumerDto {
   transportId: string;
   producerId: string;
   rtpCapabilities: RtpCapabilities;
-  paused: true;
+  paused: boolean;
 }
 
 export interface IResumeMediaStreamConsumerDto {
@@ -59,6 +59,10 @@ export interface IPauseResumeMediaStreamDto {
 export interface IRemoteMediaData {
   membersMediaData: Array<{
     memberId: string;
-    streams: Array<{ producerId: string; mediaKind: MediaKind }>;
+    streams: Array<{
+      producerId: string;
+      mediaKind: MediaKind;
+      isPaused: boolean;
+    }>;
   }>;
 }

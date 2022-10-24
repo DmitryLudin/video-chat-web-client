@@ -1,5 +1,6 @@
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff';
+import ToggleIcon from 'material-ui-toggle-icon';
 import { FooterActionControl } from 'pages/conference/components/footer/components';
 import { useCallback } from 'react';
 import { conferenceService } from 'shared/domains/conference/conference.service';
@@ -21,11 +22,11 @@ function FooterVideoControlObserver() {
     <FooterActionControl
       color={isPaused ? 'primary' : 'secondary'}
       icon={
-        isPaused ? (
-          <VideocamIcon sx={{ fontSize: '30px' }} />
-        ) : (
-          <VideocamOffIcon sx={{ fontSize: '30px' }} />
-        )
+        <ToggleIcon
+          on={!isPaused}
+          onIcon={<VideocamIcon sx={{ fontSize: '30px' }} />}
+          offIcon={<VideocamOffIcon sx={{ fontSize: '30px' }} />}
+        />
       }
       onClick={onToggleVideo}
     />
