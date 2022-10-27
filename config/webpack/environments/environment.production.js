@@ -7,8 +7,8 @@ const baseEnv = require('./base-environment');
 const prodEnv = {
   ...baseEnv,
   APP_HOST: "'http://localhost:3000'",
-  API_HOST: "'http://localhost:8000'",
-  WS_HOST: "'http://localhost:8000'",
+  API_HOST: "'http://62.84.122.93'",
+  WS_HOST: "'http://62.84.122.93'",
 };
 
 module.exports = prodEnv;

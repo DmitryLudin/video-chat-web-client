@@ -1,7 +1,7 @@
 {
   "name": "web-client",
   "version": "0.1.0",
-  "private": true,
+  "homepage": ".",
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack serve --config config/webpack/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack/webpack.prod.js",
