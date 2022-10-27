@@ -30,14 +30,19 @@ import {
   IRemoteMediaData,
 } from 'shared/domains/conference/types/media-data-dto.types';
 
-type TStore = Record<TMemberId, IMediaStreamService | undefined>;
+type TStore = {
+  activeMemberId?: string;
+  members: Record<TMemberId, IMediaStreamService | undefined>;
+};
 
 type TWebRtcTransports = {
   send?: Transport;
   receive?: Transport;
 };
 
-const initialState: TStore = {};
+const initialState: TStore = {
+  members: {},
+};
 
 export class MediaDataService {
   private meta!: TMeta;
@@ -56,10 +61,15 @@ export class MediaDataService {
   ) {}
 
   getLocalStreamService() {
-    const localStreamService = this._store.getStore()[this.meta?.selfMemberId];
+    const localStreamService =
+      this._store.getStore().members[this.meta?.selfMemberId];
 
     if (localStreamService instanceof LocalMediaStreamService)
       return localStreamService;
+  }
+
+  getStreamServiceByMemberId(memberId: string) {
+    return this._store.getStore().members[memberId];
   }
 
   /*
@@ -98,14 +108,18 @@ export class MediaDataService {
 
     this.wsTransport.listenStreamPause((data: IPauseResumeMediaStreamDto) => {
       if (data.memberId === this.meta.selfMemberId) return;
-      const streamService = this._store.getStore()[data.memberId];
+      const streamService = this._store.getStore().members[data.memberId];
       streamService?.streamPause(data.kind);
     });
 
     this.wsTransport.listenStreamResume((data: IPauseResumeMediaStreamDto) => {
       if (data.memberId === this.meta.selfMemberId) return;
-      const streamService = this._store.getStore()[data.memberId];
+      const streamService = this._store.getStore().members[data.memberId];
       streamService?.streamResume(data.kind);
+    });
+
+    this.wsTransport.listenActiveSpeaker(({ memberId }) => {
+      this._store.updateStore({ activeMemberId: memberId });
     });
   }
 
@@ -145,7 +159,10 @@ export class MediaDataService {
         httpTransport: this.transport,
       });
       await localStreamService.init();
-      this._store.updateStore({ [memberId]: localStreamService });
+      this._store.updateStore((prevState) => {
+        prevState.members[memberId] = localStreamService;
+        return prevState;
+      });
       this._store.setLoading(false);
     }
   }
@@ -159,7 +176,7 @@ export class MediaDataService {
       .filter(
         (mediaData) =>
           mediaData.memberId !== this.meta.selfMemberId ||
-          !this._store.getStoreValue(mediaData.memberId)
+          !this._store.getStore().members[mediaData.memberId]
       )
       .forEach((mediaData) => {
         const remoteStreamService = new RemoteMediaStreamService({
@@ -170,7 +187,10 @@ export class MediaDataService {
           httpTransport: this.transport,
         });
         void remoteStreamService.init(mediaData.streams);
-        this._store.updateStore({ [mediaData.memberId]: remoteStreamService });
+        this._store.updateStore((prevState) => {
+          prevState.members[mediaData.memberId] = remoteStreamService;
+          return prevState;
+        });
       });
   }
 

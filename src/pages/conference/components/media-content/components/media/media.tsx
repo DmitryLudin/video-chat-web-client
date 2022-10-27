@@ -30,7 +30,7 @@ export function Media({
         position: 'relative',
         width: '100%',
         height: '0px',
-        paddingTop: '75%',
+        paddingTop: '56.25%',
         borderRadius: 3,
         overflow: 'hidden',
         transition:

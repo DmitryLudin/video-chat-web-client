@@ -1,4 +1,5 @@
 import { RequestStore } from 'core';
+import hark from 'hark';
 import { Device } from 'mediasoup-client';
 import { Consumer } from 'mediasoup-client/lib/Consumer';
 import { Producer } from 'mediasoup-client/lib/Producer';
@@ -26,6 +27,7 @@ type TAudioStore = {
   isLoading: boolean;
   isPaused: boolean;
   isSpeaking: boolean;
+  updatedAt: Date;
 };
 
 export abstract class MediaStreamService {
@@ -44,6 +46,7 @@ export abstract class MediaStreamService {
     isLoading: false,
     isPaused: false,
     isSpeaking: false,
+    updatedAt: new Date(),
   });
 
   get videoStore() {
@@ -60,6 +63,21 @@ export abstract class MediaStreamService {
     this.webRtcTransport = options.webRtcTransport;
     this.httpTransport = options.httpTransport;
     this.wsTransport = options.wsTransport;
+  }
+
+  protected createAudioLevelObserver(stream: MediaStream) {
+    const speechEvents = hark(stream);
+
+    speechEvents.on('speaking', () => {
+      this._audioStore.updateStore({
+        isSpeaking: true,
+        updatedAt: new Date(),
+      });
+    });
+
+    speechEvents.on('stopped_speaking', () => {
+      this._audioStore.updateStore({ isSpeaking: false });
+    });
   }
 
   protected getStoreByMediaKind(mediaKind: MediaKind) {

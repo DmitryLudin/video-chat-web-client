@@ -13,7 +13,7 @@ type TProps = {
 };
 
 function MemberObserver({ member }: TProps) {
-  const mediaData = conferenceService.mediaDataStore[member.id];
+  const mediaData = conferenceService.getStreamServiceByMemberId(member.id);
   const isVideoPaused = mediaData?.videoStore.isPaused;
   const isAudioPaused = mediaData?.audioStore.isPaused;
 

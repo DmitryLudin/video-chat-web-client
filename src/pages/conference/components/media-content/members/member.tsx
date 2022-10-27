@@ -14,7 +14,7 @@ function MemberObserver({ member }: TProps) {
   const user = userService.store.user as User;
   const isSelfMember = member.user.id === user.id;
 
-  const mediaData = conferenceService.mediaDataStore[member.id];
+  const mediaData = conferenceService.getStreamServiceByMemberId(member.id);
   const videoStream = mediaData?.videoStore.localStream;
   const audioStream = mediaData?.audioStore.localStream;
   const isVideoPaused = mediaData?.videoStore.isPaused;

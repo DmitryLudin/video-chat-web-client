@@ -1,4 +1,3 @@
-import hark from 'hark';
 import { ProducerOptions } from 'mediasoup-client/lib/Producer';
 import { MediaKind } from 'mediasoup-client/lib/RtpParameters';
 import {
@@ -125,15 +124,7 @@ export class LocalMediaStreamService
         isPaused: producer?.paused,
       });
 
-      const speechEvents = hark(stream);
-
-      speechEvents.on('speaking', () => {
-        this._audioStore.updateStore({ isSpeaking: true });
-      });
-
-      speechEvents.on('stopped_speaking', () => {
-        this._audioStore.updateStore({ isSpeaking: false });
-      });
+      this.createAudioLevelObserver(stream);
     } catch (error) {
       console.log(error);
     } finally {

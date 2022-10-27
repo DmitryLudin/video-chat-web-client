@@ -3,6 +3,7 @@ import { TWsTransportCallback } from 'core/base-ws-transport/types';
 import { MediaDataEventEnum } from 'shared/domains/conference/constants/media-data-event.enum';
 import { IRoomMediaDataDto } from 'shared/domains/conference/domains/media-data/types';
 import {
+  IActiveSpeakerDto,
   IPauseResumeMediaStreamDto,
   IRemoteMediaData,
 } from 'shared/domains/conference/types/media-data-dto.types';
@@ -30,6 +31,10 @@ export class MediaDataWsTransport extends WsTransport {
     callback: TWsTransportCallback<IPauseResumeMediaStreamDto>
   ) {
     return this.listen(MediaDataEventEnum.STREAM_RESUME, callback);
+  }
+
+  listenActiveSpeaker(callback: TWsTransportCallback<IActiveSpeakerDto>) {
+    return this.listen(MediaDataEventEnum.ACTIVE_SPEAKER, callback);
   }
 
   getNewMediaStreams() {

@@ -1,4 +1,3 @@
-import hark from 'hark';
 import { MediaKind } from 'mediasoup-client/lib/RtpParameters';
 import { MediaStreamService } from 'shared/domains/conference/domains/media-data/services/media-stream.service';
 import {
@@ -43,7 +42,9 @@ export class RemoteMediaStreamService
     mediaKind: MediaKind;
     isPaused: boolean;
   }) {
-    const store = mediaKind === 'video' ? this._videoStore : this._audioStore;
+    const store = this.getStoreByMediaKind(mediaKind);
+
+    if (!store) return;
 
     try {
       const { rtpCapabilities } = this.device;
@@ -59,6 +60,7 @@ export class RemoteMediaStreamService
           paused: true,
         }
       );
+
       const consumer = await this.webRtcTransport.consume(remoteStream);
 
       const localStream = this.createLocalStream(consumer.track);
@@ -79,15 +81,7 @@ export class RemoteMediaStreamService
       }
 
       if (mediaKind === 'audio') {
-        const speechEvents = hark(localStream);
-
-        speechEvents.on('speaking', () => {
-          this._audioStore.updateStore({ isSpeaking: true });
-        });
-
-        speechEvents.on('stopped_speaking', () => {
-          this._audioStore.updateStore({ isSpeaking: false });
-        });
+        this.createAudioLevelObserver(localStream);
       }
 
       consumer.on('trackended', () => {

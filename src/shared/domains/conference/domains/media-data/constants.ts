@@ -9,7 +9,6 @@ export const videoMediaConstraints = {
       min: 400,
       ideal: 1080,
     },
-    frameRate: { ideal: 10, max: 15 },
   },
 };
 

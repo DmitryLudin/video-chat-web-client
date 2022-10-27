@@ -36,6 +36,24 @@ class ConferenceService {
     private readonly mediaDataService: MediaDataService
   ) {}
 
+  getStreamServiceByMemberId(memberId: string) {
+    return this.mediaDataService.getStreamServiceByMemberId(memberId);
+  }
+
+  getSortedMembers() {
+    const members = this.roomStore.members;
+    const activeMemberId = this.mediaDataStore.activeMemberId;
+    const activeMember = members.find((member) => member.id === activeMemberId);
+
+    if (!activeMember) {
+      return members;
+    }
+
+    return [activeMember].concat(
+      members.filter((member) => member.id !== activeMemberId)
+    );
+  }
+
   /* Комната Конференции */
   getRoomByUserId(roomId: string, userId: number) {
     return this.roomService.getByUserId(roomId, userId);

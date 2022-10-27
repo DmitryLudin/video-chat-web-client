@@ -56,6 +56,10 @@ export interface IPauseResumeMediaStreamDto {
   kind: MediaKind;
 }
 
+export interface IActiveSpeakerDto {
+  memberId: string;
+}
+
 export interface IRemoteMediaData {
   membersMediaData: Array<{
     memberId: string;

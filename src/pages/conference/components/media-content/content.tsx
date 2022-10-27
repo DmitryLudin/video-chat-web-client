@@ -9,19 +9,25 @@ export function ConferenceMediaContent() {
     <Box
       sx={{
         p: isMobile ? 2 : 4,
-        margin: '0 auto',
         width: '100%',
-        height: `calc(100vh - 92px - ${isMobile ? 56 : 64}px)`,
-        display: 'grid',
-        gridGap: (theme) => theme.spacing(2),
-        gridTemplateColumns: 'repeat(auto-fill, 240px)',
-        justifyContent: 'center',
+        height: `calc(100vh - 92px - 64px)`,
         overflow: 'auto',
-        gridAutoRows: 'max-content',
       }}
     >
-      {/*<ActiveMember />*/}
-      <Members />
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: isMobile ? '67vh' : '67vw',
+          margin: '0 auto',
+          display: 'grid',
+          gridGap: (theme) => theme.spacing(2),
+          gridTemplateColumns: 'repeat(auto-fit, minmax(228px, 1fr))',
+          gridAutoFlow: 'dense',
+          gridAutoRows: 'min-content',
+        }}
+      >
+        <Members />
+      </Box>
     </Box>
   );
 }
