@@ -20,7 +20,11 @@ export class RemoteMediaStreamService
       isPaused: boolean;
     }>
   ) {
-    await Promise.all([this.consume(streams[0]), this.consume(streams[1])]);
+    try {
+      await Promise.all([this.consume(streams[0]), this.consume(streams[1])]);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   streamPause(mediaKind: MediaKind) {

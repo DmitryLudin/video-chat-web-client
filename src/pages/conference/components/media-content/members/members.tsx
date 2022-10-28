@@ -7,7 +7,7 @@ import { withObserverMemo } from 'shared/hoc/with-observer-memo.hoc';
 
 const MemberWrapper = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
-    '&:first-child': {
+    '&:first-of-type': {
       gridColumnStart: 1,
       gridColumnEnd: 3,
       gridRowStart: 1,

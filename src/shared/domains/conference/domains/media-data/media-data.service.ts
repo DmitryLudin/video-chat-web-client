@@ -107,13 +107,13 @@ export class MediaDataService {
     });
 
     this.wsTransport.listenStreamPause((data: IPauseResumeMediaStreamDto) => {
-      if (data.memberId === this.meta.selfMemberId) return;
+      if (data.memberId === this.meta?.selfMemberId) return;
       const streamService = this._store.getStore().members[data.memberId];
       streamService?.streamPause(data.kind);
     });
 
     this.wsTransport.listenStreamResume((data: IPauseResumeMediaStreamDto) => {
-      if (data.memberId === this.meta.selfMemberId) return;
+      if (data.memberId === this.meta?.selfMemberId) return;
       const streamService = this._store.getStore().members[data.memberId];
       streamService?.streamResume(data.kind);
     });
@@ -168,14 +168,14 @@ export class MediaDataService {
   }
 
   private createRemoteMediaStreams(membersMediaData: TRemoteMemberMediaData[]) {
-    if (!this.device || !this.webRtcTransports.receive) return;
+    if (!this.device || !this.webRtcTransports.receive || !this.meta) return;
     const device = this.device;
     const webRtcTransport = this.webRtcTransports.receive;
 
     membersMediaData
       .filter(
         (mediaData) =>
-          mediaData.memberId !== this.meta.selfMemberId ||
+          mediaData.memberId !== this.meta.selfMemberId &&
           !this._store.getStore().members[mediaData.memberId]
       )
       .forEach((mediaData) => {

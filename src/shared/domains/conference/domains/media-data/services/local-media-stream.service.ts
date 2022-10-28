@@ -163,6 +163,7 @@ export class LocalMediaStreamService
       return producer;
     } catch (err) {
       console.log('Produce error:', err);
+      throw err;
     }
   }
 }
