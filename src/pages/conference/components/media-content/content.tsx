@@ -17,7 +17,7 @@ export function ConferenceMediaContent() {
       <Box
         sx={{
           width: '100%',
-          maxWidth: isMobile ? '67vh' : '67vw',
+          maxWidth: isMobile ? '100%' : '67vw',
           margin: '0 auto',
           display: 'grid',
           gridGap: (theme) => theme.spacing(2),
