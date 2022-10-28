@@ -6,6 +6,7 @@ import {
   IActiveSpeakerDto,
   IPauseResumeMediaStreamDto,
   IRemoteMediaData,
+  IRemoteStreamCloseDto,
 } from 'shared/domains/conference/types/media-data-dto.types';
 
 export class MediaDataWsTransport extends WsTransport {
@@ -35,6 +36,12 @@ export class MediaDataWsTransport extends WsTransport {
 
   listenActiveSpeaker(callback: TWsTransportCallback<IActiveSpeakerDto>) {
     return this.listen(MediaDataEventEnum.ACTIVE_SPEAKER, callback);
+  }
+
+  listenRemoteStreamClose(
+    callback: TWsTransportCallback<IRemoteStreamCloseDto>
+  ) {
+    return this.listen(MediaDataEventEnum.CLOSE_STREAM, callback);
   }
 
   getNewMediaStreams() {

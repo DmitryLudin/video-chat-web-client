@@ -1,11 +1,17 @@
-const path = require('path')
+'use strict';
+
+const path = require('path');
+
+const rootPath = process.cwd();
+const resolveApp = path.resolve.bind(path, rootPath);
 
 module.exports = {
   // Source files
-  src: path.resolve(__dirname, '../../src'),
+  src: resolveApp('src'),
   // Production build files
-  build: path.resolve(__dirname, '../../dist'),
+  build: resolveApp('dist'),
   // Static files that get copied to build folder
-  public: path.resolve(__dirname, '../../public'),
-  root: path.join(__dirname, '../../')
+  public: resolveApp('public'),
+  root: path.join(__dirname, '../../'),
+  appHtml: resolveApp('public/index.html')
 }

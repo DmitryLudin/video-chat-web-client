@@ -121,6 +121,18 @@ export class MediaDataService {
     this.wsTransport.listenActiveSpeaker(({ memberId }) => {
       this._store.updateStore({ activeMemberId: memberId });
     });
+
+    this.wsTransport.listenRemoteStreamClose(({ memberId }) => {
+      this._store.updateStore((prevState) => {
+        delete prevState.members[memberId];
+
+        if (prevState.activeMemberId === memberId) {
+          prevState.activeMemberId = undefined;
+        }
+
+        return prevState;
+      });
+    });
   }
 
   disconnect() {

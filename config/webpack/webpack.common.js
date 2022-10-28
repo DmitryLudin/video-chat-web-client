@@ -65,8 +65,9 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: `${paths.public}/assets`,
-          to: 'assets'
+          from: paths.public,
+          to: paths.build,
+          filter: (name) => name !== paths.appHtml
         },
       ],
     }),

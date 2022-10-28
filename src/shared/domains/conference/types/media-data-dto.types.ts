@@ -60,6 +60,10 @@ export interface IActiveSpeakerDto {
   memberId: string;
 }
 
+export interface IRemoteStreamCloseDto {
+  memberId: string;
+}
+
 export interface IRemoteMediaData {
   membersMediaData: Array<{
     memberId: string;
