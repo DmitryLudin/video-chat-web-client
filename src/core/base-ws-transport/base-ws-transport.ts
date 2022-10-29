@@ -14,7 +14,8 @@ export class WsTransport {
 
     this.socket = io(url, {
       withCredentials: true,
-      transports: ['websocket', 'polling'],
+      transports: ['websocket'],
+      // forceNew: true,
     });
 
     this.socket.on('connect', () => {

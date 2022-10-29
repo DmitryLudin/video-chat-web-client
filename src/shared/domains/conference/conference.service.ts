@@ -98,9 +98,9 @@ class ConferenceService {
   }
 
   disconnect() {
-    this.roomService.disconnect();
-    this.chatService.disconnect();
     this.mediaDataService.disconnect();
+    this.chatService.disconnect();
+    this.roomService.disconnect();
   }
 
   reset() {
